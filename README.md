@@ -7,4 +7,4 @@ Integration Guidelines available here:  http://www.evosnap.com/support/knowledge
 
 EVO Snap*, Commerce Web Services sample code demonstrating how to integrate with our API.
 
-To request personalized test credentials visit: http://www.evosnap.com/contact/  
+To request personalized test credentials visit:  http://www.evosnap.com/request-certification-credentials/
