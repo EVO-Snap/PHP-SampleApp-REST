@@ -240,7 +240,7 @@ $workflowId = ''; // ServiceId/WorkFlowId of service connecting to
 			
 			if (count ( $siResponse [2]->Workflows )) {
 				$si->Workflows->Workflow = new Workflow ();
-				$si->Workflows->Workflow = $siResponse [2]->Workflows [0];
+				$si->Workflows = $siResponse [2]->Workflows;
 			}
 			
 			return $si;

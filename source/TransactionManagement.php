@@ -26,10 +26,10 @@
  */
 
 // Require and bring in all required classes
-define ( 'ABSPATH', dirname ( __FILE__ ) . '/' );
-require_once ABSPATH . '/WebServiceProxies/HelperMethods.php'; // Require and bring in all helper functions
-require_once ABSPATH . '/ConfigFiles/app.config.php';
-date_default_timezone_set ( Settings::Timezone );
+define('ABSPATH', dirname(__FILE__).'/');
+require_once ABSPATH.'/WebServiceProxies/HelperMethods.php'; // Require and bring in all helper functions
+require_once ABSPATH.'/ConfigFiles/app.config.php';
+date_default_timezone_set(Settings::Timezone);
 
 global $credentials;
 global $_identityToken;
@@ -53,8 +53,7 @@ $_msgFormat = Settings::MsgFormat;
 // If the IdentityToken is compromised you must notify us immmediately so we can issue a new IdentityToken
 // This is main means of authentication to the platform, essentially this is your password.
 
-
-require_once ABSPATH . '/ConfigFiles/ReadConfigValues.php';
+require_once ABSPATH.'/ConfigFiles/ReadConfigValues.php';
 
 /*
  *
@@ -78,71 +77,72 @@ $client = new JSONClient ( $_identityToken, $_baseURL, $_merchantProfileId [0] [
 
 $includeRelated = false;
 
-$pagingParameters = new PagingParameters ();
+$pagingParameters = new PagingParameters();
 $pagingParameters->Page = '0';
 $pagingParameters->PageSize = '50';
 
-$txnDateRange = new DateRange ();
-$txnDateRange->StartDateTime = date ( 'Y-m-d\TH:i:s.u\Z', mktime ( 0, 0, 0, date ( "m" ), date ( "d" ) - 5, date ( "Y" ) ) ); // Previous 5 days.
-$txnDateRange->EndDateTime = date ( 'Y-m-d\TH:i:s.u\Z' ); // Format = 2012-09-20T09:50:56.000000Z
+$txnDateRange = new DateRange();
+$txnDateRange->StartDateTime = date('Y-m-d\TH:i:s.u\Z', mktime(0,0,0, date("m"), date("d")-5, date("Y"))); // Previous 5 days.
+$txnDateRange->EndDateTime = date('Y-m-d\TH:i:s.u\Z'); // Format = 2012-09-20T09:50:56.000000Z
 
-
-$queryTxnParameters = new QueryTransactionsParameters ();
+$queryTxnParameters = new QueryTransactionsParameters();
 $queryTxnParameters->Amounts = null; // ArrayOfdecimal
 $queryTxnParameters->ApprovalCodes = null; // ArrayOfstring
 $queryTxnParameters->BatchIds = null; // ArrayOfstring
 $queryTxnParameters->CaptureDateRange = null; // DateRange
-$captureStates [0] = 'ReadyForCapture';
-$captureStates [1] = 'Captured';
+$captureStates[0] = 'ReadyForCapture';
+$captureStates[1] = 'Captured';
 $queryTxnParameters->CaptureStates = $captureStates; // ArrayOfCaptureState
 $queryTxnParameters->CardTypes = null; // ArrayOfTypeCardType
-$queryTxnParameters->IsAcknowledged = 'false'; // BooleanParameter  true/false
+$queryTxnParameters->IsAcknowledged = 'NotSet'; // BooleanParameter  true/false
 $queryTxnParameters->MerchantProfileIds = null; // ArrayOfstring
 $queryTxnParameters->QueryType = 'AND'; // QueryType  AND/OR
 $queryTxnParameters->ServiceIds = null; // ArrayOfstring
 $queryTxnParameters->ServiceKeys = null; // ArrayOfstring
 $queryTxnParameters->TransactionClassTypePairs = null; // ArrayOfTransactionClassTypePair*/
-$queryTxnParameters->TransactionDateRange = null; //$txnDateRange; // DateRange
+$queryTxnParameters->TransactionDateRange = null;//$txnDateRange; // DateRange
 //$queryTxnParameters->TransactionIds = null; // ArrayOfstring
 //$queryTxnParameters->TransactionIds[] = 'PUT_TXN_GUID1_HERE'; // ArrayOfstring
 //$queryTxnParameters->TransactionIds[] = 'PUT_OPTIONAL_2ND_TXN_GUID_HERE';
 //$queryTxnParameters->TransactionStates = null; // ArrayOfTransactionState
 
+$response = $client->queryTransactionsSummary($queryTxnParameters, $includeRelated, $pagingParameters);
 
-$response = $client->queryTransactionsSummary ( $queryTxnParameters, $includeRelated, $pagingParameters );
-
-if (isset ( $response->SummaryDetail ) && is_array ( $response->SummaryDetail )) {
+if (isset($response->SummaryDetail) && is_array ( $response->SummaryDetail )) { 
 	foreach ( $response->SummaryDetail as $SummaryDetail ) {
-		printSummaryDetailInformation ( $SummaryDetail );
+		printSummaryDetailInformation ($SummaryDetail );
 	}
-	if (count ( $response->SummaryDetail ) == 50)
-		echo '<br />50 records returned on this query. Query for additional pages.';
-} else {
+	if (count($response->SummaryDetail) == 50)
+	echo '<br />50 records returned on this query. Query for additional pages.';
+}
+else {
 	printSummaryDetailInformation ( $response->SummaryDetail );
 }
 
-$transactionIds [0] = $response->SummaryDetail [0]->TransactionInformation->TransactionId;
+$transactionIds[0] = $response->SummaryDetail [0]->TransactionInformation->TransactionId; 
 $queryTxnParameters->TransactionIds = $transactionIds;
 
-$response = $client->queryTransactionFamilies ( $queryTxnParameters, $includeRelated, $pagingParameters );
+$response = $client->queryTransactionFamilies($queryTxnParameters, $includeRelated, $pagingParameters);
 
 if (is_array ( $response->FamilyDetail )) {
 	foreach ( $response->FamilyDetail as $FamilyDetail ) {
-		printFamilyDetailInformation ( $FamilyDetail );
+		printFamilyDetailInformation ($FamilyDetail );
 	}
-} else {
+}
+else {
 	printFamilyDetailInformation ( $response->FamilyDetail );
 }
 
 $transactionDetailFormat = 'SerializedCWS';
 $queryTxnParameters->CaptureStates = null;
-$response = $client->queryTransactionsDetail ( $queryTxnParameters, $includeRelated, $transactionDetailFormat, $pagingParameters );
+$response = $client->queryTransactionsDetail($queryTxnParameters, $includeRelated, $transactionDetailFormat, $pagingParameters);
 
 if (is_array ( $response )) {
 	foreach ( $response as $TransactionDetail ) {
-		printTransactionDetailInformation ( $TransactionDetail );
+		printTransactionDetailInformation ($TransactionDetail );
 	}
-} else {
+}
+else {
 	printTransactionDetailInformation ( $response );
 }
 

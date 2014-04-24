@@ -121,10 +121,6 @@ function setBCPTxnData($_serviceInformation) {
 		$tenderData->zip = '10101';
 		// $tenderData->track1 = 'B4111111111111111^EVOSNAP/TESTCARD^15121010454500415000010';
 		// $tenderData->track2 = '4111111111111111=15121010454541500010';
-		// $tenderData->encryptionKeyId = '9010010B0C2472000021'; //20-character string returned by MagneSafe device when card is swiped.
-		// $tenderData->securePaymentAccountData = '87936F09AE06386BA4CD81ADFF7DF0FA5AC1B28EF9F7B7075E415545F9B9095C0AC5FA12B9905325'; //Encrypted Track 2 data returned by MagneSafe device when card is swiped.
-		// $tenderData->identificationInformation = '9ED72A486AB36DC352957C2C00607E937D1D90CB8B09A8588629AABA8EAF0FD65296A4FBA490EECFCD8D5B350438C4BFA6A36FFA2ADAAA3E'; //Encrypted MagnePrint® Information returned by the MagneSafe™ device when card is swiped.
-		// $tenderData->swipeStatus = '00304061'; //MagnePrint Status of Card Swipe. This is an alpha numeric string, returned by MagneSafe device when card is swiped.
 	}
 	
 	// Transaction information
@@ -207,7 +203,7 @@ function setBCPTxnData($_serviceInformation) {
 		} 		/*
 		   * Note: older processors support this way of Soft Descriptors/Alternative Merchant Data the combination of your top level MerchantProfile->MerchantName with MerchantProfile->CustomerServiceInternet combined with the ReportingData->Description will make the soft descriptor format
 		   */
-else {
+		else {
 			$reportingData = new TransactionReportingData ();
 			$reportingData->Description = 'AltMerchName';
 			$transactionData->ReportingData = $reportingData;

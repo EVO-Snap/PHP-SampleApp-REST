@@ -26,10 +26,10 @@
  */
 
 // Require and bring in all required classes
-define ( 'ABSPATH', dirname ( __FILE__ ) . '/' );
-require_once ABSPATH . '/WebServiceProxies/HelperMethods.php'; // Require and bring in all helper functions
-require_once ABSPATH . '/ConfigFiles/app.config.php';
-date_default_timezone_set ( Settings::Timezone );
+define('ABSPATH', dirname(__FILE__).'/');
+require_once ABSPATH.'/WebServiceProxies/HelperMethods.php'; // Require and bring in all helper functions
+require_once ABSPATH.'/ConfigFiles/app.config.php';
+date_default_timezone_set(Settings::Timezone);
 
 global $credentials;
 global $_identityToken;
@@ -55,9 +55,11 @@ $_msgFormat = Settings::MsgFormat;
 // If the IdentityToken is compromised you must notify us immmediately so we can issue a new IdentityToken
 // This is main means of authentication to the platform, essentially this is your password.
 
-
-require_once ABSPATH . '/ConfigFiles/ReadConfigValues.php';
-
+require_once ABSPATH.'/ConfigFiles/ReadConfigValues.php';
+	if (!Settings::ActivationKey == ''){
+		$_merchantProfileId[0]['ProfileId'] = Settings::ActivationKey;
+		$_merchantProfileId[1]['ProfileId'] = Settings::ActivationKey.'_TC';
+	}
 /*
  *
  * Create new web service client class using provided token
@@ -75,18 +77,24 @@ $_baseURL = Settings::URL_RestURL;
 require_once ABSPATH . '/WebServiceProxies/JSONClient.php';
 if (!Settings::UseWorkflow)
 	$client = new JSONClient ( $_identityToken, $_baseURL, $_merchantProfileId [0] ['ProfileId'], $_merchantProfileId [0] ['ServiceId'], $_applicationProfileId );
-else 
+else
 	$client = new JSONClient ( $_identityToken, $_baseURL, $_merchantProfileId [0] ['ProfileId'], $_workflowId [0] ['ServiceId'], $_applicationProfileId );
-$_serviceInformation = $client->getServiceInformation ();
 
-if (isset ( $_serviceInformation->BankcardServices )) {
+$_serviceInformation = $client->getServiceInformation();
+
+if (isset($_serviceInformation->BankcardServices)){
 	$_bankcardServices = $_serviceInformation->BankcardServices;
-	require_once ABSPATH . '/TransactionProcessingScripts/BankcardTransactionProcessing.php';
+	require_once ABSPATH.'/TransactionProcessingScripts/BankcardTransactionProcessing.php';
 }
 
-if (isset ( $_serviceInformation->ElectronicCheckingServices->ElectronicCheckingService )) {
+if (isset($_serviceInformation->ElectronicCheckingServices->ElectronicCheckingService)){
 	$_electronicCheckingServices = $_serviceInformation->ElectronicCheckingServices;
-	require_once ABSPATH . '/TransactionProcessingScripts/ElectronicCheckingTransactionProcessing.php';
+	require_once ABSPATH.'/TransactionProcessingScripts/ElectronicCheckingTransactionProcessing.php';
+}
+
+if (isset($_serviceInformation->StoredValueServices->StoredValueService)){
+	$_storedvalueServices = $_serviceInformation->StoredValueServices;
+	require_once ABSPATH.'/TransactionProcessingScripts/StoredValueTransactionProcessing.php';
 }
 
 echo '<br><b>     Transaction Processing script complete!</b><br />';

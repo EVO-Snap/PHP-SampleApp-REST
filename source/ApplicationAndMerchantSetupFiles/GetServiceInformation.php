@@ -29,14 +29,15 @@
 /*
  * Retrieve Service Information
  */
-if ($_serviceId == null) {
+if ($_serviceId == null)
+{
 	$response = $client->getServiceInformation ();
 	$_serviceInformation = $response;
-	
+
 	/*
 	 * If multiple services exist print them all to the browser
 	 */
-	
+
 	/*
 	 * Note you may have multiple ServiceId's in your array of
 	 * Get Service Information.  Assign your Service Id appropriately
@@ -46,58 +47,65 @@ if ($_serviceId == null) {
 	 * added at a later date.
 	 *
 	 */
-	
+
 	// Print Service Information
-	if (isset ( $response->BankcardServices )) {
+	if (isset($response->BankcardServices))
+	{
 		echo '<div style="text-align:center; border-width: thin; border-color: black; border-style:solid; "><h1>Service Information - Bankcard Services</h1></div>';
 		if (is_array ( $response->BankcardServices )) {
 			foreach ( $response->BankcardServices as $BankcardService ) {
 				printServiceInformation ( $BankcardService );
-				$_serviceId [] = array ('ServiceId' => $BankcardService->ServiceId, 'ServiceName' => $BankcardService->ServiceName );
+				$_serviceId[] = array('ServiceId' => $BankcardService->ServiceId, 'ServiceName' => $BankcardService->ServiceName);
 			}
-		} else {
-			printServiceInformation ( $response->BankcardServices->BankcardService );
-			$_serviceId ['singleService'] = array ('ServiceId' => $response->BankcardServices->BankcardService->ServiceId, 'ServiceName' => $response->BankcardServices->BankcardService->ServiceName );
-		
 		}
-		if (isset ( $response->Workflows->Workflow )) {
+		else {
+			printServiceInformation ( $response->BankcardServices->BankcardService );
+			$_serviceId['singleService'] = array('ServiceId' => $response->BankcardServices->BankcardService->ServiceId, 'ServiceName' => $response->BankcardServices->BankcardService->ServiceName);
+
+		}
+		if (isset ( $response->Workflows)) {
 			echo '<div style="text-align:center; border-width: thin; border-color: black; border-style:solid; "><h1>Service Information - Bankcard Workflows</h1></div>';
-			if (is_array ( $response->Workflows )) {
+			if (is_array ( $response->Workflows)) {
 				foreach ( $response->Workflows as $Workflow ) {
 					echo '<h2><b>WorkflowName:</b><font color="#800080"> ' . $Workflow->Name . '</font></h2>';
 					echo '<b>WorkflowId:</b><font color="#800080"> ' . $Workflow->WorkflowId . '<br /></font><br />';
 					$_workflowId [] = array ('WorkflowId' => $Workflow->WorkflowId, 'WorkflowName' => $Workflow->Name );
 				}
-			} else {
+			}
+			else {
 				echo '<h2><b>WorkflowName:</b><font color="#800080"> ' . $response->Workflows->Workflow->Name . '</font></h2>';
 				echo '<b>WorkflowId:</b><font color="#800080"> ' . $response->Workflows->Workflow->WorkflowId . '<br /></font><br />';
-				$_workflowId [] = array ('WorkflowId' => $response->Workflows->Workflow->WorkflowId, 'WorkflowName' => $response->Workflows->Workflow->Name );			
+				$_workflowId [] = array ('WorkflowId' => $response->Workflows->Workflow->WorkflowId, 'WorkflowName' => $response->Workflows->Workflow->Name );
 			}
 		}
 	}
-	if (isset ( $response->ElectronicCheckingServices->ElectronicCheckingService )) {
+	if (isset($response->ElectronicCheckingServices->ElectronicCheckingService))
+	{
 		echo '<div style="text-align:center; border-width: thin; border-color: black; border-style:solid; "><h1>Service Information - Electronic Checking Services</h1></div>';
 		if (is_array ( $response->ElectronicCheckingServices->ElectronicCheckingService )) {
 			foreach ( $response->ElectronicCheckingServices->ElectronicCheckingService as $ElectronickCheckingService ) {
 				printServiceInformation ( $ElectronickCheckingService );
-				$_serviceId [] = array ('ServiceId' => $ElectronickCheckingService->ServiceId, 'ServiceName' => $ElectronickCheckingService->ServiceName );
+				$_serviceId[] = array('ServiceId' => $ElectronickCheckingService->ServiceId, 'ServiceName' => $ElectronickCheckingService->ServiceName);
 			}
-		} else {
+		}
+		else {
 			printServiceInformation ( $response->ElectronicCheckingServices->ElectronicCheckingService );
-			$_serviceId ['singleService'] = array ('ServiceId' => $response->ElectronicCheckingServices->ElectronicCheckingService->ServiceId, 'ServiceName' => $response->ElectronicCheckingServices->ElectronicCheckingService->ServiceName );
+			$_serviceId['singleService'] = array('ServiceId' => $response->ElectronicCheckingServices->ElectronicCheckingService->ServiceId, 'ServiceName' => $response->ElectronicCheckingServices->ElectronicCheckingService->ServiceName);
 		}
 	}
-	
-	if (isset ( $response->StoredValueServices->StoredValueService )) {
+
+	if (isset($response->StoredValueServices->StoredValueService))
+	{
 		echo '<div style="text-align:center; border-width: thin; border-color: black; border-style:solid; "><h1>Service Information - Stored Value Services</h1></div>';
 		if (is_array ( $response->StoredValueServices->StoredValueService )) {
 			foreach ( $response->StoredValueServices->StoredValueService as $StoredValueServices ) {
 				printServiceInformation ( $StoredValueServices );
-				$_serviceId [] = array ('ServiceId' => $StoredValueServices->ServiceId, 'ServiceName' => $StoredValueServices->ServiceName );
+				$_serviceId[] = array('ServiceId' => $StoredValueServices->ServiceId, 'ServiceName' => $StoredValueServices->ServiceName);
 			}
-		} else {
+		}
+		else {
 			printServiceInformation ( $response->StoredValueServices->StoredValueService );
-			$_serviceId ['singleService'] = array ('ServiceId' => $response->StoredValueServices->StoredValueService->ServiceId, 'ServiceName' => $response->StoredValueServices->StoredValueService->ServiceName );
+			$_serviceId['singleService'] = array('ServiceId' => $response->StoredValueServices->StoredValueService->ServiceId, 'ServiceName' => $response->StoredValueServices->StoredValueService->ServiceName);
 			break;
 		}
 	}
@@ -109,11 +117,11 @@ if ($_serviceId == null) {
  *
  */
 function printServiceInformation($service) {
-	$_serviceName = $service->ServiceName;
-	
-	echo '<h2><b>ServiceName:</b><font color="#800080"> ' . $_serviceName . '</font></h2>';
-	echo '<b>ServiceId:</b><font color="#800080"> ' . $service->ServiceId . '<br /></font><br />';
-	
+	$_serviceName =  $service->ServiceName;
+
+	echo '<h2><b>ServiceName:</b><font color="#800080"> '.$_serviceName.'</font></h2>';
+	echo '<b>ServiceId:</b><font color="#800080"> '.$service->ServiceId.'<br /></font><br />';
+
 	echo '<h3><b>Transaction Operations Supported:</h3>';
 	echo '<ul><li><b>Verify:</b><font color="#800080"> ' . transalateBool ( $service->Operations->Verify ) . '</font><br />';
 	echo '<li><b>QueryAccount:</b><font color="#800080"> ' . transalateBool ( $service->Operations->QueryAccount ) . '</font><br />';
@@ -124,8 +132,9 @@ function printServiceInformation($service) {
 	echo '<li><b>Capture:</b><font color="#800080"> ' . transalateBool ( $service->Operations->Capture ) . '</font><br />';
 	echo '<li><b>CaptureSelective:</b><font color="#800080"> ' . transalateBool ( $service->Operations->CaptureSelective ) . '</font><br />';
 	echo '<li><b>CaptureAll:</b><font color="#800080"> ' . transalateBool ( $service->Operations->CaptureAll ) . '</ul></font><br />';
-	
-	if (! "ElectronicCheckingService") {
+
+	if(!"ElectronicCheckingService")
+	{
 		echo '<h3><b>AVS Data that is accepted:</h3>';
 		echo '<ul><li><b>CardholderName:</b><font color="#800080"> ' . transalateBool ( $service->AVSData->CardholderName ) . '</font><br />';
 		echo '<li><b>Street:</b><font color="#800080"> ' . transalateBool ( $service->AVSData->Street ) . '</font><br />';
@@ -134,7 +143,7 @@ function printServiceInformation($service) {
 		echo '<li><b>PostalCode:</b><font color="#800080"> ' . transalateBool ( $service->AVSData->PostalCode ) . '</font><br />';
 		echo '<li><b>Country:</b><font color="#800080"> ' . transalateBool ( $service->AVSData->Country ) . '</font><br />';
 		echo '<li><b>Phone:</b><font color="#800080"> ' . transalateBool ( $service->AVSData->Phone ) . '</ul></font><br />';
-		
+
 		echo '<h3><b>Service Support Details:</h3>';
 		echo '<ul><li><b>AutoBatch:</b><font color="#800080"> ' . transalateBool ( $service->AutoBatch ) . '</font><br />';
 		//echo '-CutoffTime:</b><font color="#800080"> '.$service->CutoffTime.'</font><br />';

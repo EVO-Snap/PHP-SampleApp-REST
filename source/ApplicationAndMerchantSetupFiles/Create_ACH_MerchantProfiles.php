@@ -127,7 +127,7 @@ if ($_serviceInformation->ElectronicCheckingServices->ElectronicCheckingService 
 
 
 /*
- * Function to create BCP MerchantProfile
+ * Function to create ACH MerchantProfile
  */
 function setACHMerchantProfile(){
 	// BankCard Merchant Data Object

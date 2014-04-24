@@ -26,10 +26,10 @@
  * the software company to properly integrate into thier solution code that best meets thier production needs.
  */
 
-define ( 'ABSPATH', dirname ( __FILE__ ) . '/' );
-require_once ABSPATH . '/WebServiceProxies/HelperMethods.php'; // Require and bring in all helper functions
-require_once ABSPATH . '/ConfigFiles/app.config.php';
-date_default_timezone_set ( Settings::Timezone );
+define('ABSPATH', dirname(__FILE__).'/');
+require_once ABSPATH.'/WebServiceProxies/HelperMethods.php'; // Require and bring in all helper functions
+require_once ABSPATH.'/ConfigFiles/app.config.php';
+date_default_timezone_set(Settings::Timezone);
 
 global $_identityToken;
 global $_serviceKey;
@@ -43,7 +43,7 @@ global $_msgFormat;
 global $client;
 $_msgFormat = Settings::MsgFormat;
 
-require_once ABSPATH . '/ConfigFiles/ReadConfigValues.php';
+require_once ABSPATH.'/ConfigFiles/ReadConfigValues.php';
 
 /*
  *
@@ -61,16 +61,21 @@ $_baseURL = Settings::URL_RestURL;
 require_once ABSPATH . '/WebServiceProxies/JSONClient.php';
 $client = new JSONClient ( $_identityToken, $_baseURL );
 
-if ($_applicationProfileId == null) {
-	include_once ABSPATH . '/ApplicationAndMerchantSetupFiles/SaveApplicationData.php';
+if($_applicationProfileId == null){
+	include_once ABSPATH.'/ApplicationAndMerchantSetupFiles/SaveApplicationData.php';
 }
-if ($_serviceInformation == null) {
-	include_once ABSPATH . '/ApplicationAndMerchantSetupFiles/GetServiceInformation.php';
+if($_serviceInformation == null){
+	include_once ABSPATH.'/ApplicationAndMerchantSetupFiles/GetServiceInformation.php';
 }
-if (isset ( $_serviceInformation->BankcardServices ) ){
-	include_once ABSPATH . '/ApplicationAndMerchantSetupFiles/Create_BCP_MerchantProfiles.php';
+if (isset($_serviceInformation->BankcardServices)  || 
+		is_array($_serviceInformation->BankcardServices)){
+	include_once ABSPATH.'/ApplicationAndMerchantSetupFiles/Create_BCP_MerchantProfiles.php';
 }
 
-include_once ABSPATH . '/ConfigFiles/SaveConfigValues.php';
+
+//if ($_serviceInformation->ElectronicCheckingServices->ElectronicCheckingService instanceof ElectronicCheckingService || is_array($_serviceInformation->ElectronicCheckingServices->ElectronicCheckingService)){
+//	include_once ABSPATH.'/ApplicationAndMerchantSetupFiles/Create_ACH_MerchantProfiles.php';
+//}
+include_once ABSPATH.'/ConfigFiles/SaveConfigValues.php';
 
 ?>

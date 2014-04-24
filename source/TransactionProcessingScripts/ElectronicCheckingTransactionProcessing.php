@@ -64,18 +64,6 @@ if (is_array($_merchantProfileId)){
 
 		/*
 		 *
-		 * Query Account using ACH Check Data
-		 *
-		 */
-
-
-		if($_achs->Operations->QueryAccount)
-		{
-			$response = $client->queryAccount($eckTxn->TndrData, $eckTxn->TxnData);
-			printQueryAccountResults($response, 'Query Account', $merchProfileId);
-		}
-		/*
-		 *
 		 * Authorize using credit card
 		 *
 		 */

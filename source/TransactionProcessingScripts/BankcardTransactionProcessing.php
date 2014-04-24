@@ -25,8 +25,7 @@
  * the software company to properly integrate into thier solution code that best meets thier production needs.
  */
 
-
-include_once ABSPATH.'/TransactionProcessingScripts/SetBankcardTransactionData.php';
+include_once ABSPATH . '/TransactionProcessingScripts/SetBankcardTransactionData.php';
 
 $_bcs = null;
 
@@ -69,7 +68,22 @@ if (is_array($_merchantProfileId)){
 		 * Authorize using credit card
 		 *
 		 */
-
+		if ($bcpTxn->TndrData->securePaymentAccountData != ''){
+			switch ($client->merchantProfileID)	{
+			case 'TestMerchant_39C6700001':
+				$client->workflowId = $_workflowId[0]['ServiceId'];
+				break;
+			case 'TestMerchant_4C85600001':
+				$client->workflowId = $_workflowId[1]['ServiceId'];
+				break;
+			case Settings::ActivationKey:
+				$client->workflowId = $_workflowId[0]['ServiceId'];
+				break;
+			case Settings::ActivationKey.'TC':
+				$client->workflowId = $_workflowId[1]['ServiceId'];
+				break;
+			}
+		}
 		if($_bcs->Operations->Authorize)
 		{
 			$response = $client->authorize($bcpTxn->TndrData, $bcpTxn->TxnData, Settings::ProcessAsBankcardTransaction_Pro);
@@ -147,7 +161,6 @@ if (is_array($_merchantProfileId)){
 			printTransactionResults($response5, 'AuthorizeAndCapture', $merchProfileId);
 		}
 
-
 		/*
 		 *
 		 * Return funds based on previous transactionId
@@ -171,12 +184,10 @@ if (is_array($_merchantProfileId)){
 			$response4 = $client->CaptureSelective($txnIds, null);
 			printBatchResults($response4, $merchProfileId);
 
-
 			// Note: You must provide an already captured Authorize TransactionId for ReturnById
 			$response6 = $client->returnByID($response3->TransactionId, $bcpTxn->TxnData->Creds, '2.00');
 			printTransactionResults($response6, 'ReturnById After Capture', $merchProfileId);
 		}
-
 
 		/*
 		 *

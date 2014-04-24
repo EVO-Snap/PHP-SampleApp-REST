@@ -96,48 +96,52 @@ if (is_array ( $response ) && isset ( $response [0] ) && !isset ( $merchantProfi
 echo '<div style="text-align:center; border-width: thin; border-color: black; border-style:solid; "><h1>Merchant Information</h1></div>';
 if (is_array ( $merchantProfiles ) && isset ( $merchantProfiles [1] )) {
 	foreach ( $merchantProfiles as $MerchantProfile ) {
-		
-		if (is_array ( $MerchantProfile )) // The message type was HTTP
-			$MerchantProfile = arrayToObject ( $MerchantProfile );
+		if(is_array($MerchantProfile)) // The message type was HTTP
+			$MerchantProfile = arrayToObject($MerchantProfile); 
 			$response = $client->getMerchantProfile($MerchantProfile->ServiceId, $MerchantProfile->ProfileId);
 		printMerchantProfiles ( $response );
-		$_merchantProfileId [] = array ('ProfileId' => $MerchantProfile->ProfileId, 'ServiceId' => $MerchantProfile->ServiceId );
+		$_merchantProfileId[] = array( 'ProfileId' => $MerchantProfile->ProfileId, 'ServiceId' => $MerchantProfile->ServiceId);
 	}
-} /*
+}
+/*
 * Only one Merchant Profile exists.  Print this to the browser
 */
-else {
+else{
 	printMerchantProfiles ( $response );
-	$_merchantProfileId [] = array ('ProfileId' => $response->ProfileId, 'ServiceId' => $response->ServiceId );
+	$_merchantProfileId[] = array( 'ProfileId' => $response->ProfileId, 'ServiceId' => $response->ServiceId);
 }
 
 if ($_merchantProfileId != null) {
 	echo '<h2>The following Merchant ProfileId(s) are initialized</h2>';
-	if (is_array ( $_merchantProfileId )) {
+	if (is_array($_merchantProfileId))
+	{
 		echo '<ul>';
-		foreach ( $_merchantProfileId as $id ) {
-			$response = $client->isMerchantProfileInitialized ( $id ['ProfileId'], $id ['ServiceId'] );
-			
-			if ($response == 'true' || $response->IsMerchantProfileInitializedResult) {
-				echo '<li>' . $id ['ProfileId'] . ' with ServiceId of:</b><font color="#800080"> ' . $id ['ServiceId'] . ' is initialized.<br/>';
+		foreach($_merchantProfileId as $id){
+			$response = $client->isMerchantProfileInitialized ( $id['ProfileId'], $id['ServiceId'] );
+
+			if ($response == 'true' || $response->IsMerchantProfileInitializedResult)
+			{
+				echo '<li>'.$id['ProfileId'].' with ServiceId of:</b><font color="#800080"> '.$id['ServiceId'].' is initialized.<br/>';
 			}
 		}
 		echo '</ul>';
-	} else {
+	}
+	else {
 		echo '<ul>';
-		foreach ( $_merchantProfileId as $id ) {
-			$response = $client->isMerchantProfileInitialized ( $id, $id ['ServiceId'] );
+		foreach($_merchantProfileId as $id){
+			$response = $client->isMerchantProfileInitialized ( $id, $id['ServiceId'] );
 			if ($response->IsMerchantProfileInitializedResult)
-				echo '<li>' . $id . ' with ServiceId of:</b><font color="#800080"> ' . $_serviceId . ' is initialized.<br/>';
+			echo '<li>'.$id.' with ServiceId of:</b><font color="#800080"> '.$_serviceId.' is initialized.<br/>';
 		}
 		echo '</ul>';
 	}
 
-} else {
+}
+else{
 	echo '<ul>';
-	$response = $client->isMerchantProfileInitialized ( $_merchantProfileId ['ProfileId'], $_merchantProfileId ['ServiceId'] );
+	$response = $client->isMerchantProfileInitialized ( $_merchantProfileId['ProfileId'], $_merchantProfileId['ServiceId'] );
 	if ($response)
-		echo '<li>' . $_merchantProfileId . ' with ServiceId of:</b><font color="#800080"> ' . $_serviceId . ' is initialized.<br/>';
+	echo '<li>'.$_merchantProfileId.' with ServiceId of:</b><font color="#800080"> '.$_serviceId.' is initialized.<br/>';
 	echo '</ul>';
 }
 

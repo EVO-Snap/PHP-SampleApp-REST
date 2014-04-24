@@ -1160,4 +1160,117 @@ function arrayToObject($array) {
 		return $bank_transpro;
 	}
 
+function SeperateTrackData($TrackFromMSR)
+{
+	$Splitter = '?';
+
+	list($Track1, $Track2) = explode($Splitter, $TrackFromMSR);
+	$Track1 = str_replace('%','',$Track1);
+	$Track2 = str_replace(';','',$Track2);
+	return array($Track1,$Track2);
+}
+
+function ValidateTrackData($SeperatedTrackData)
+{
+	$regTrackData1 = preg_match("/([B|b])([\d]{12,19})\^([^\^]{2,26})\^([\d]{4}|\^)([\d]{3}|\^)([^\?]+)/",$SeperatedTrackData[0],$MatchTrack1);
+	$regTrackData2 = preg_match("/(\d{12,19})\=(\d{4}|\=)(\d{3}|\=)([^\?]+)/",$SeperatedTrackData[1],$MatchTrack2);
+	
+		if ($regTrackData1 == 0)
+		{
+			$MatchTrack1 = '';
+		}
+		if ($regTrackData2 == 0)
+		{
+			$MatchTrack2 = '';
+		}
+		if ($regTrackData1 == 0 and $regTrackData2 == 0)
+		{
+			echo 'Swipe Invalid. Please key credit card number';
+			return false;
+		}
+		return array($MatchTrack1,$MatchTrack2);
+}
+
+function CardTypeLookup($ValidatedTrackData, $KeyedPAN)
+{
+	if ($ValidatedTrackData[0][0] !='') {
+		$PanData = $ValidatedTrackData[0][2];
+	}
+	elseif ($ValidatedTrackData[1][0] !='') {
+		$PanData = $ValidatedTrackData[1][1];
+	}
+	else {
+		$PanData = $KeyedPAN;
+	}
+
+	if (substr($PanData, 0, 1) == 4) {
+		$Lookup = 'Visa';
+	}
+	elseif (substr($PanData, 0, 1) == 5) {
+		$Lookup = 'MasterCard';
+	}
+	elseif (substr($PanData, 0, 2) == 34) {
+		$Lookup = 'AmericanExpress';
+	}
+	elseif (substr($PanData, 0, 2) == 37) {
+		$Lookup = 'AmericanExpress';
+	}
+	elseif (substr($PanData, 0, 2) == 30 | substr($PanData, 0, 2) == 36 | substr($PanData, 0, 2) == 38 | substr($PanData, 0, 2) == 39) {
+		$Lookup = 'Discover';
+	}
+	elseif (substr($PanData, 0, 6) >= 601100 && substr($PanData, 0, 4) <= 601103) {
+		$Lookup = 'Discover';
+	}
+	elseif (substr($PanData, 0, 6) >= 601104) {
+		$Lookup = 'Discover'; //Will update to Paypal in the future
+	}
+	elseif (substr($PanData, 0, 6) >= 601105 && substr($PanData, 0, 6) <= 650599) {
+		$Lookup = 'Discover';
+	}
+	elseif (substr($PanData, 0, 6) >= 650600 && substr($PanData, 0, 6) <= 650610) {
+		$Lookup = 'Discover'; //Will update to Paypal in the future
+	}
+	elseif (substr($PanData, 0, 6) >= 650611 && substr($PanData, 0, 6) <= 659999) {
+		$Lookup = 'Discover';
+	}
+	elseif (substr($PanData, 0, 2) == 35) {
+		$Lookup = 'JCB';
+	}
+	elseif (substr($PanData, 0, 2) == 67) {
+		$Lookup = 'Maestro';
+	}
+	else {
+		$Lookup = 'NotSet';
+	}
+
+	return $Lookup;
+}
+
+function ValidateCreditCard($ValidatedTrackData, $KeyedPAN)
+{
+	if ($ValidatedTrackData[0][0] !='') {
+		$PanData = $ValidatedTrackData[0][2];
+	}
+	elseif ($ValidatedTrackData[1][0] !='') {
+		$PanData = $ValidatedTrackData[1][1];
+	}
+	else {
+		$PanData = $KeyedPAN;
+	}
+	for ($x=strlen($PanData)-2; $x >= 0 ; $x -= 2) { 
+		$CheckSum += array_sum(str_split(substr($PanData,$x,1)*2));
+	}
+	for ($y=strlen($PanData)-3; $y >= 0 ; $y -= 2) { 
+		$OriginalSum += array_sum(str_split(substr($PanData,$y,1)));
+	}
+	
+	$cd = (($CheckSum + $OriginalSum) * 9) % 10;
+	
+	if ($cd == substr($PanData, -1)) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 ?>
