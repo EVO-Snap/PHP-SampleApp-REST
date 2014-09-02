@@ -584,6 +584,7 @@ else {
 			$DifferenceData = new BankcardUndo ();
 			$DifferenceData->PINDebitReason = 'NotSet';
 			$DifferenceData->ForceVoid = false;
+			$DifferenceData->TransactionCode = 'NotSet';
 			$DiffType = '"$type":"BankcardUndo,http://schemas.evosnap.com/CWS/v2.0/Transactions/Bankcard",';
 		}
 		if ($this->svc instanceof ElectronicCheckingService || $txnType == "ECK") {
