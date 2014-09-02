@@ -79,6 +79,8 @@ class Settings
 	// Support Tokenization
 	const TxnData_SupportTokenization = true; // 'true', 'false'
 	const TxnData_ProcessEncrypted = false;
+	// Process as a BankcardTransaction object or as an Internation AVS transaction
+	const ProcessInternationalTxn = true;
 
 	// Process as a BankcardTransaction object or as a BankcardTransactionPro object
 	const ProcessAsBankcardTransaction_Pro = false;		// 'true', 'false' If set to true the following Pro parameters are required
@@ -93,13 +95,13 @@ class Settings
 	const TxnData_ServiceType = 'ACH';   //Indicates the Electronic Checking service type: ACH, RDC or ECK. Required.
 	
 	// Endpoint Management
-	const BaseSvcEndpointPrimary = 'https://api.cipcert.goevo.com/2.0.19/SvcInfo';
-	const BaseSvcEndpointSecondary = 'https://api.cipcert.goevo.com/2.0.19/SvcInfo';
-	const BaseTxnEndpointPrimary = 'https://api.cipcert.goevo.com/2.0.19/Txn';
-	const BaseTxnEndpointSecondary = 'https://api.cipcert.goevo.com/2.0.19/Txn';
-	const BaseDataServicesEndpointPrimary = 'https://api.cipcert.goevo.com/2.0.19/DataServices/TMS';
-	const BaseDataServicesEndpointSecondary = 'https://api.cipcert.goevo.com/2.0.19/DataServices/TMS';
-	const URL_BaseURL = 'https://api.cipcert.goevo.com/2.0.19/';
-	const URL_RestURL = 'https://api.cipcert.goevo.com/REST/2.0.19/';
+	const BaseSvcEndpointPrimary = 'https://api.cipcert.goevo.com/2.0.20/SvcInfo';
+	const BaseSvcEndpointSecondary = 'https://api.cipcert.goevo.com/2.0.20/SvcInfo';
+	const BaseTxnEndpointPrimary = 'https://api.cipcert.goevo.com/2.0.20/Txn';
+	const BaseTxnEndpointSecondary = 'https://api.cipcert.goevo.com/2.0.20/Txn';
+	const BaseDataServicesEndpointPrimary = 'https://api.cipcert.goevo.com/2.0.20/DataServices/TMS';
+	const BaseDataServicesEndpointSecondary = 'https://api.cipcert.goevo.com/2.0.20/DataServices/TMS';
+	const URL_BaseURL = 'https://api.cipcert.goevo.com/2.0.20/';
+	const URL_RestURL = 'https://api.cipcert.goevo.com/REST/2.0.20/';
 }
 ?>

@@ -92,10 +92,10 @@ if (isset($_serviceInformation->ElectronicCheckingServices->ElectronicCheckingSe
 	require_once ABSPATH.'/TransactionProcessingScripts/ElectronicCheckingTransactionProcessing.php';
 }
 
-if (isset($_serviceInformation->StoredValueServices->StoredValueService)){
-	$_storedvalueServices = $_serviceInformation->StoredValueServices;
-	require_once ABSPATH.'/TransactionProcessingScripts/StoredValueTransactionProcessing.php';
-}
+//if (isset($_serviceInformation->StoredValueServices->StoredValueService)){
+	//$_storedvalueServices = $_serviceInformation->StoredValueServices;
+	//require_once ABSPATH.'/TransactionProcessingScripts/StoredValueTransactionProcessing.php';
+//}
 
 echo '<br><b>     Transaction Processing script complete!</b><br />';
 ?>

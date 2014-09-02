@@ -408,19 +408,19 @@ $workflowId = ''; // ServiceId/WorkFlowId of service connecting to
 	 * $amount and $tip_amount: ('#.##'} (At least $1, two decimals required (1.00))
 	 *
 	 */
-	public function authorize($credit_info, $trans_info, $processAsPro = false) {
+	public function authorize($credit_info, $trans_info, $processAsPro = false, $processIntAvs = false) {
 		if (! $this->signOn ())
 			return false;
 		
 		if ($this->svc instanceof BankcardService || $this->svc == null) {
 			// Bank transactionPro
 			if ($processAsPro == true) {
-				$Transaction = buildTransactionPro ( $credit_info, $trans_info );
+				$Transaction = buildTransactionPro ( $credit_info, $trans_info, $processIntAvs );
 				$TxnType = '"$type":"BankcardTransactionPro,http://schemas.evosnap.com/CWS/v2.0/Transactions/Bankcard/Pro",';
 				$TxnDataType = '"$type":"BankcardTransactionDataPro,http://schemas.evosnap.com/CWS/v2.0/Transactions/Bankcard/Pro",';
 			} // Bank Transaction
 else {
-				$Transaction = buildTransaction ( $credit_info, $trans_info );
+				$Transaction = buildTransaction ( $credit_info, $trans_info, $processIntAvs );
 				$TxnType = '"$type":"BankcardTransaction,http://schemas.evosnap.com/CWS/v2.0/Transactions/Bankcard",';
 				$TxnDataType = ''; //$TxnDataType = '"$type":"BankcardTransactionData,http://schemas.evosnap.com/CWS/v2.0/Transactions/Bankcard",';  DB Removed 12.18.2012 as current production schemas will not accept
 			}
@@ -518,19 +518,19 @@ else {
 	 * $amount and $tip_amount: ('#.##'} (At least $1, two decimals required (1.00))
 	 *
 	 */
-	public function authorizeAndCapture($credit_info, $trans_info, $processAsPro) {
+	public function authorizeAndCapture($credit_info, $trans_info, $processAsPro, $processIntAvs) {
 		if (! $this->signOn ())
 			return false;
 		
 		if ($this->svc instanceof BankcardService || $this->svc == null) {
 			// Bank transactionPro
 			if ($processAsPro == true) {
-				$Transaction = buildTransactionPro ( $credit_info, $trans_info );
+				$Transaction = buildTransactionPro ( $credit_info, $trans_info, $processIntAvs );
 				$TxnType = '"$type":"BankcardTransactionPro,http://schemas.evosnap.com/CWS/v2.0/Transactions/Bankcard/Pro",';
 				$TxnDataType = '"$type":"BankcardTransactionDataPro,http://schemas.evosnap.com/CWS/v2.0/Transactions/Bankcard/Pro",';
 			} // Bank Transaction
 else {
-				$Transaction = buildTransaction ( $credit_info, $trans_info );
+				$Transaction = buildTransaction ( $credit_info, $trans_info, $processIntAvs );
 				$TxnType = '"$type":"BankcardTransaction,http://schemas.evosnap.com/CWS/v2.0/Transactions/Bankcard",';
 				$TxnDataType = ''; //$TxnDataType = '"$type":"BankcardTransactionData,http://schemas.evosnap.com/CWS/v2.0/Transactions/Bankcard",'; DB Removed 12.18.2012 as current production schemas will not accept
 			}
@@ -696,7 +696,7 @@ else {
 		$TxnDataType = '';//"$type" : "BankcardTransactionData,http://schemas.evosnap.com/CWS/v2.0/Transactions/Bankcard",';
 		
 		// Bank transaction
-		$bank_trans = buildTransaction ( $credit_info, $trans_info );
+		$bank_trans = buildTransaction ( $credit_info, $trans_info, $processIntlAvs );
 		
 		// Build ReturnUnlinked
 		$msgBody = new Rest_ReturnTransaction ();

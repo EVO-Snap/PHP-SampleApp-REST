@@ -34,7 +34,7 @@ function  setACHTxnData() {
 
 	// below demonstrates how to use a PaymentAccountDataToken instead of Card Data
 	$tokenizedTenderData = new achCheck();
-	$tokenizedTenderData->paymentAccountDataToken = '5bd1daa0-5f38-40ba-a102-7467dcfc624598dabf6c-c849-4822-84cc-f2ad899a054e';
+	$tokenizedTenderData->PaymentAccountDataToken = '567980c8-c3f8-4edd-b46d-b13580d0d28c7b3ac5f6-c27e-49ab-8839-c3bd6ef438cf';
 	$tokenizedTenderData->CheckNumber = '1101';
 	$tokenizedTenderData->OwnerType = 'Personal';
 	$tokenizedTenderData->UseType = 'Checking';
@@ -63,13 +63,13 @@ function  setACHTxnData() {
 	$transactionData->TransactionDateTime = $dateTime->format(DATE_RFC3339);
 	$transactionData->TransactionType = 'Debit'; // Indicates Transaction Type Credit/Debit
 
-	if ($_electronicCheckingServices->ElectronicCheckingService->Tenders->CredentialsRequired)
-	{
-		$credentials = '<UserId>100000007506657</UserId><Password>A1B2C3D4F6</Password>';
+		$credentials[0] = '<UserId>100000007506657</UserId>';
+		$credentials[1] = '<Password>A1B2C3D4F6</Password>';
 		$transactionData->Creds = $credentials;
-	}
-	$credentials = '<UserId>100000007506657</UserId><Password>A1B2C3D4F6</Password>';
-		$transactionData->Creds = $credentials;
+
+/*	$credentials[0] = '<UserId>100000007506657</UserId>';
+		$credentials[1] = '<Password>A1B2C3D4F6</Password>';*/
+		//$transactionData->Creds = $credentials;
 	
 	$transaction = new newTransaction();
 	$transaction->TndrData = $tenderData;

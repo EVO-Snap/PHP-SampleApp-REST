@@ -30,1096 +30,1101 @@
  * 
  */
 
-if (! class_exists ( "PingResponse" )) {
-	/*
+if (!class_exists("PingResponse")) {
+/*
  *PingResponse
  */
-	class PingResponse {
-		public $IsSuccess; // boolean
-		public $Message; // string
-	}
+class PingResponse {
+  public $IsSuccess; // boolean
+  public $Message; // string
+}
 }
 
-if (! class_exists ( "Ping" )) {
-	/*
+if (!class_exists("Ping")) {
+/*
  *Ping
  */
-	class Ping {
-	}
+class Ping {
+}
 }
 
-if (! class_exists ( "PingResponse" )) {
-	/*
+if (!class_exists("PingResponse")) {
+/*
  *PingResponse
  */
-	class PingResponse {
-		public $PingResult; // PingResponse
-	}
+class PingResponse {
+  public $PingResult; // PingResponse
+}
 }
 
-if (! class_exists ( "char" )) {
-	/*
+if (!class_exists("char")) {
+/*
  *char
  */
-	class char {
-	}
+class char {
+}
 }
 
-if (! class_exists ( "duration" )) {
-	/*
+if (!class_exists("duration")) {
+/*
  *duration
  */
-	class duration {
-	}
+class duration {
+}
 }
 
-if (! class_exists ( "guid" )) {
-	/*
+if (!class_exists("guid")) {
+/*
  *guid
  */
-	class guid {
-	}
+class guid {
+}
 }
 
-if (! class_exists ( "SignOnWithToken" )) {
-	/*
+if (!class_exists("SignOnWithToken")) {
+/*
  *SignOnWithToken
  */
-	class SignOnWithToken {
-		public $identityToken; // string
-	}
+class SignOnWithToken {
+  public $identityToken; // string
+}
 }
 
-if (! class_exists ( "SignOnWithTokenResponse" )) {
-	/*
+if (!class_exists("SignOnWithTokenResponse")) {
+/*
  *SignOnWithTokenResponse
  */
-	class SignOnWithTokenResponse {
-		public $SignOnWithTokenResult; // string
-	}
+class SignOnWithTokenResponse {
+  public $SignOnWithTokenResult; // string
+}
 }
 
-if (! class_exists ( "GetServiceInformation" )) {
-	/*
+if (!class_exists("GetServiceInformation")) {
+/*
  *GetServiceInformation
  */
-	class GetServiceInformation {
-		public $sessionToken; // string
-	}
+class GetServiceInformation {
+  public $sessionToken; // string
+}
 }
 
-if (! class_exists ( "GetServiceInformationResponse" )) {
-	/*
+if (!class_exists("GetServiceInformationResponse")) {
+/*
  *GetServiceInformationResponse
  */
-	class GetServiceInformationResponse {
-		public $GetServiceInformationResult; // ServiceInformation
-	}
+class GetServiceInformationResponse {
+  public $GetServiceInformationResult; // ServiceInformation
+}
 }
 
-if (! class_exists ( "ServiceInformation" )) {
-	/*
+if (!class_exists("ServiceInformation")) {
+/*
  *ServiceInformation
  */
-	class ServiceInformation {
-		public $BankcardServices; // ArrayOfBankcardService
-		public $ElectronicCheckingServices; // ArrayOfElectronicCheckingService
-		public $StoredValueServices; // ArrayOfStoredValueService
-		public $Workflows; // ArrayOfWorkflow
-	}
+class ServiceInformation {
+  public $BankcardServices; // ArrayOfBankcardService
+  public $ElectronicCheckingServices; // ArrayOfElectronicCheckingService
+  public $StoredValueServices; // ArrayOfStoredValueService
+  public $Workflows; // ArrayOfWorkflow
+}
 }
 
-if (! class_exists ( "BankcardService" )) {
-	/*
+if (!class_exists("BankcardService")) {
+/*
  *BankcardService
  */
-	class BankcardService {
-		public $AlternativeMerchantData; // boolean
-		public $AutoBatch; // boolean
-		public $AVSData; // BankcardServiceAVSData
-		public $CutoffTime; // dateTime
-		public $EncryptionKey; // string
-		public $ManagedBilling; // boolean
-		public $MaximumBatchItems; // long
-		public $MaximumLineItems; // long
-		public $MultiplePartialCapture; // boolean
-		public $Operations; // Operations
-		public $PurchaseCardLevel; // PurchaseCardLevel
-		public $ServiceId; // string
-		public $ServiceName; // string
-		public $Tenders; // Tenders
-	}
+class BankcardService {
+  public $AlternativeMerchantData; // boolean
+  public $AutoBatch; // boolean
+  public $AVSData; // BankcardServiceAVSData
+  public $CutoffTime; // dateTime
+  public $EncryptionKey; // string
+  public $ManagedBilling; // boolean
+  public $MaximumBatchItems; // long
+  public $MaximumLineItems; // long
+  public $MultiplePartialCapture; // boolean
+  public $Operations; // Operations
+  public $PurchaseCardLevel; // PurchaseCardLevel
+  public $ServiceId; // string
+  public $ServiceName; // string
+  public $Tenders; // Tenders
+}
 }
 
-if (! class_exists ( "BankcardServiceAVSData" )) {
-	/*
+if (!class_exists("BankcardServiceAVSData")) {
+/*
  *BankcardServiceAVSData
  */
-	class BankcardServiceAVSData {
-		public $CardholderName; // boolean
-		public $Street; // boolean
-		public $City; // boolean
-		public $StateProvince; // boolean
-		public $PostalCode; // boolean
-		public $Country; // boolean
-		public $Phone; // boolean
-	}
+class BankcardServiceAVSData {
+  public $CardholderName; // boolean
+  public $Street; // boolean
+  public $City; // boolean
+  public $StateProvince; // boolean
+  public $PostalCode; // boolean
+  public $Country; // boolean
+  public $Phone; // boolean
+}
 }
 
-if (! class_exists ( "Operations" )) {
-	/*
+if (!class_exists("Operations")) {
+/*
  *Operations
  */
-	class Operations {
-		public $Verify; // boolean
-		public $QueryAccount; // boolean
-		public $AuthAndCapture; // boolean
-		public $Authorize; // boolean
-		public $Adjust; // boolean
-		public $ReturnById; // boolean
-		public $ReturnUnlinked; // boolean
-		public $Undo; // boolean
-		public $Capture; // boolean
-		public $CaptureSelective; // boolean
-		public $CaptureAll; // boolean
-		public $CloseBatch; // CloseBatch
-		public $QueryRejected; // boolean
-		public $ManageAccount; // boolean
-		public $ManageAccountById; // boolean
-		public $Disburse; // boolean
-	}
+class Operations {
+  public $Verify; // boolean
+  public $QueryAccount; // boolean
+  public $AuthAndCapture; // boolean
+  public $Authorize; // boolean
+  public $Adjust; // boolean
+  public $ReturnById; // boolean
+  public $ReturnUnlinked; // boolean
+  public $Undo; // boolean
+  public $Capture; // boolean
+  public $CaptureSelective; // boolean
+  public $CaptureAll; // boolean
+  public $CloseBatch; // CloseBatch
+  public $QueryRejected; // boolean
+  public $ManageAccount; // boolean
+  public $ManageAccountById; // boolean
+  public $Disburse; // boolean
+}
 }
 
-if (! class_exists ( "CloseBatch" )) {
-	/*
+if (!class_exists("CloseBatch")) {
+/*
  *CloseBatch
  */
-	class CloseBatch {
-	}
+class CloseBatch {
+}
 }
 
-if (! class_exists ( "PurchaseCardLevel" )) {
-	/*
+if (!class_exists("PurchaseCardLevel")) {
+/*
  *PurchaseCardLevel
  */
-	class PurchaseCardLevel {
-	}
+class PurchaseCardLevel {
+}
 }
 
-if (! class_exists ( "Tenders" )) {
-	/*
+if (!class_exists("Tenders")) {
+/*
  *Tenders
  */
-	class Tenders {
-		public $Credit; // boolean
-		public $PINDebit; // boolean
-		public $PINlessDebit; // boolean
-		public $PINDebitReturnSupportType; // PINDebitReturnSupportType
-		public $PINDebitUndoTenderDataRequired; // boolean
-		public $CreditAuthorizeSupport; // CreditAuthorizeSupportType
-		public $QueryRejectedSupport; // QueryRejectedSupportType
-		public $PinDebitUndoSupport; // PinDebitUndoSupportType
-		public $BatchAssignmentSupport; // BatchAssignmentSupport
-		public $CreditReturnSupportType; // CreditReturnSupportType
-		public $TrackDataSupport; // TrackDataSupportType
-		public $CredentialsRequired; // boolean
-		public $CreditReversalSupportType; // CreditReversalSupportType
-		public $PartialApprovalSupportType; // PartialApprovalSupportType
-	}
+class Tenders {
+  public $Credit; // boolean
+  public $PINDebit; // boolean
+  public $PINlessDebit; // boolean
+  public $PINDebitReturnSupportType; // PINDebitReturnSupportType
+  public $PINDebitUndoTenderDataRequired; // boolean
+  public $CreditAuthorizeSupport; // CreditAuthorizeSupportType
+  public $QueryRejectedSupport; // QueryRejectedSupportType
+  public $PinDebitUndoSupport; // PinDebitUndoSupportType
+  public $BatchAssignmentSupport; // BatchAssignmentSupport
+  public $CreditReturnSupportType; // CreditReturnSupportType
+  public $TrackDataSupport; // TrackDataSupportType
+  public $CredentialsRequired; // boolean
+  public $CreditReversalSupportType; // CreditReversalSupportType
+  public $PartialApprovalSupportType; // PartialApprovalSupportType
+}
 }
 
-if (! class_exists ( "PINDebitReturnSupportType" )) {
-	/*
+if (!class_exists("PINDebitReturnSupportType")) {
+/*
  *PINDebitReturnSupportType
  */
-	class PINDebitReturnSupportType {
-	}
+class PINDebitReturnSupportType {
+}
 }
 
-if (! class_exists ( "CreditAuthorizeSupportType" )) {
-	/*
+if (!class_exists("CreditAuthorizeSupportType")) {
+/*
  *CreditAuthorizeSupportType
  */
-	class CreditAuthorizeSupportType {
-	}
+class CreditAuthorizeSupportType {
+}
 }
 
-if (! class_exists ( "QueryRejectedSupportType" )) {
-	/*
+if (!class_exists("QueryRejectedSupportType")) {
+/*
  *QueryRejectedSupportType
  */
-	class QueryRejectedSupportType {
-	}
+class QueryRejectedSupportType {
+}
 }
 
-if (! class_exists ( "PinDebitUndoSupportType" )) {
-	/*
+if (!class_exists("PinDebitUndoSupportType")) {
+/*
  *PinDebitUndoSupportType
  */
-	class PinDebitUndoSupportType {
-	}
+class PinDebitUndoSupportType {
+}
 }
 
-if (! class_exists ( "BatchAssignmentSupport" )) {
-	/*
+if (!class_exists("BatchAssignmentSupport")) {
+/*
  *BatchAssignmentSupport
  */
-	class BatchAssignmentSupport {
-	}
+class BatchAssignmentSupport {
+}
 }
 
-if (! class_exists ( "CreditReturnSupportType" )) {
-	/*
+if (!class_exists("CreditReturnSupportType")) {
+/*
  *CreditReturnSupportType
  */
-	class CreditReturnSupportType {
-	}
+class CreditReturnSupportType {
+}
 }
 
-if (! class_exists ( "TrackDataSupportType" )) {
-	/*
+if (!class_exists("TrackDataSupportType")) {
+/*
  *TrackDataSupportType
  */
-	class TrackDataSupportType {
-	}
+class TrackDataSupportType {
+}
 }
 
-if (! class_exists ( "CreditReversalSupportType" )) {
-	/*
+if (!class_exists("CreditReversalSupportType")) {
+/*
  *CreditReversalSupportType
  */
-	class CreditReversalSupportType {
-	}
+class CreditReversalSupportType {
+}
 }
 
-if (! class_exists ( "PartialApprovalSupportType" )) {
-	/*
+if (!class_exists("PartialApprovalSupportType")) {
+/*
  *PartialApprovalSupportType
  */
-	class PartialApprovalSupportType {
-	}
+class PartialApprovalSupportType {
+}
 }
 
-if (! class_exists ( "ElectronicCheckingService" )) {
-	/*
+if (!class_exists("ElectronicCheckingService")) {
+/*
  *ElectronicCheckingService
  */
-	class ElectronicCheckingService {
-		public $Operations; // Operations
-		public $ServiceId; // string
-		public $ServiceName; // string
-		public $Tenders; // Tenders
-	}
+class ElectronicCheckingService {
+  public $Operations; // Operations
+  public $ServiceId; // string
+  public $ServiceName; // string
+  public $Tenders; // Tenders
+}
 }
 
-if (! class_exists ( "StoredValueService" )) {
-	/*
+if (!class_exists("StoredValueService")) {
+/*
  *StoredValueService
  */
-	class StoredValueService {
-		public $Operations; // Operations
-		public $ServiceId; // string
-		public $ServiceName; // string
-		public $Tenders; // Tenders
-		public $SecureMSRAllowed; // boolean
-	}
+class StoredValueService {
+  public $Operations; // Operations
+  public $ServiceId; // string
+  public $ServiceName; // string
+  public $Tenders; // Tenders
+  public $SecureMSRAllowed; // boolean
+}
 }
 
-if (! class_exists ( "Workflow" )) {
-	/*
+if (!class_exists("Workflow")) {
+/*
  *Workflow
  */
-	class Workflow {
-		public $WorkflowId; // string
-		public $Name; // string
-		public $ServiceId; // string
-		public $WorkflowServices; // ArrayOfWorkflowService
-	}
+class Workflow {
+  public $WorkflowId; // string
+  public $Name; // string
+  public $ServiceId; // string
+  public $WorkflowServices; // ArrayOfWorkflowService
+}
 }
 
-if (! class_exists ( "WorkflowService" )) {
-	/*
+if (!class_exists("WorkflowService")) {
+/*
  *WorkflowService
  */
-	class WorkflowService {
-		public $ServiceId; // string
-		public $ServiceName; // string
-		public $ServiceType; // string
-		public $Ordinal; // int
-	}
+class WorkflowService {
+  public $ServiceId; // string
+  public $ServiceName; // string
+  public $ServiceType; // string
+  public $Ordinal; // int
+}
 }
 
-if (! class_exists ( "SaveApplicationData" )) {
-	/*
+if (!class_exists("SaveApplicationData")) {
+/*
  *SaveApplicationData
  */
-	class SaveApplicationData {
-		public $sessionToken; // string
-		public $applicationData; // ApplicationData
-	}
+class SaveApplicationData {
+  public $sessionToken; // string
+  public $applicationData; // ApplicationData
+}
 }
 
-if (! class_exists ( "ApplicationData" )) {
-	/*
+if (!class_exists("ApplicationData")) {
+/*
  *ApplicationData
  */
-	class ApplicationData {
-		public $ApplicationAttended; // boolean
-		public $ApplicationLocation; // ApplicationLocation
-		public $ApplicationName; // string
-		public $DeveloperId; // string
-		public $HardwareType; // HardwareType
-		public $PINCapability; // PINCapability
-		public $PTLSSocketId; // string
-		public $ReadCapability; // ReadCapability
-		public $SerialNumber; // string
-		public $SoftwareVersion; // string
-		public $SoftwareVersionDate; // dateTime
-		public $VendorId; // string
-		public $EncryptionType; // EncryptionType
-		public $DeviceSerialNumber; // string
-	}
+class ApplicationData {
+  public $ApplicationAttended; // boolean
+  public $ApplicationLocation; // ApplicationLocation
+  public $ApplicationName; // string
+  public $DeveloperId; // string
+  public $HardwareType; // HardwareType
+  public $PINCapability; // PINCapability
+  public $PTLSSocketId; // string
+  public $ReadCapability; // ReadCapability
+  public $SerialNumber; // string
+  public $SoftwareVersion; // string
+  public $SoftwareVersionDate; // dateTime
+  public $VendorId; // string
+  public $EncryptionType; // EncryptionType
+  public $DeviceSerialNumber; // string
+}
 }
 
-if (! class_exists ( "ApplicationLocation" )) {
-	/*
+if (!class_exists("ApplicationLocation")) {
+/*
  *ApplicationLocation
  */
-	class ApplicationLocation {
-	}
+class ApplicationLocation {
+}
 }
 
-if (! class_exists ( "HardwareType" )) {
-	/*
+if (!class_exists("HardwareType")) {
+/*
  *HardwareType
  */
-	class HardwareType {
-	}
+class HardwareType {
+}
 }
 
-if (! class_exists ( "PINCapability" )) {
-	/*
+if (!class_exists("PINCapability")) {
+/*
  *PINCapability
  */
-	class PINCapability {
-	}
+class PINCapability {
+}
 }
 
-if (! class_exists ( "ReadCapability" )) {
-	/*
+if (!class_exists("ReadCapability")) {
+/*
  *ReadCapability
  */
-	class ReadCapability {
-	}
+class ReadCapability {
+}
 }
 
-if (! class_exists ( "EncryptionType" )) {
-	/*
+if (!class_exists("EncryptionType")) {
+/*
  *EncryptionType
  */
-	class EncryptionType {
-	}
+class EncryptionType {
+}
 }
 
-if (! class_exists ( "SaveApplicationDataResponse" )) {
-	/*
+if (!class_exists("SaveApplicationDataResponse")) {
+/*
  *SaveApplicationDataResponse
  */
-	class SaveApplicationDataResponse {
-		public $SaveApplicationDataResult; // string
-	}
+class SaveApplicationDataResponse {
+  public $SaveApplicationDataResult; // string
+}
 }
 
-if (! class_exists ( "GetApplicationData" )) {
-	/*
+if (!class_exists("GetApplicationData")) {
+/*
  *GetApplicationData
  */
-	class GetApplicationData {
-		public $sessionToken; // string
-		public $applicationProfileId; // string
-	}
+class GetApplicationData {
+  public $sessionToken; // string
+  public $applicationProfileId; // string
+}
 }
 
-if (! class_exists ( "GetApplicationDataResponse" )) {
-	/*
+if (!class_exists("GetApplicationDataResponse")) {
+/*
  *GetApplicationDataResponse
  */
-	class GetApplicationDataResponse {
-		public $GetApplicationDataResult; // ApplicationData
-	}
+class GetApplicationDataResponse {
+  public $GetApplicationDataResult; // ApplicationData
+}
 }
 
-if (! class_exists ( "DeleteApplicationData" )) {
-	/*
+if (!class_exists("DeleteApplicationData")) {
+/*
  *DeleteApplicationData
  */
-	class DeleteApplicationData {
-		public $sessionToken; // string
-		public $applicationProfileId; // string
-	}
+class DeleteApplicationData {
+  public $sessionToken; // string
+  public $applicationProfileId; // string
+}
 }
 
-if (! class_exists ( "DeleteApplicationDataResponse" )) {
-	/*
+if (!class_exists("DeleteApplicationDataResponse")) {
+/*
  *DeleteApplicationDataResponse
  */
-	class DeleteApplicationDataResponse {
-	}
+class DeleteApplicationDataResponse {
+}
 }
 
-if (! class_exists ( "IsMerchantProfileInitialized" )) {
-	/*
+if (!class_exists("IsMerchantProfileInitialized")) {
+/*
  *IsMerchantProfileInitialized
  */
-	class IsMerchantProfileInitialized {
-		public $sessionToken; // string
-		public $serviceId; // string
-		public $merchantProfileId; // string
-		public $tenderType; // TenderType
-	}
+class IsMerchantProfileInitialized {
+  public $sessionToken; // string
+  public $serviceId; // string
+  public $merchantProfileId; // string
+  public $tenderType; // TenderType
+}
 }
 
-if (! class_exists ( "TenderType" )) {
-	/*
+if (!class_exists("TenderType")) {
+/*
  *TenderType
  */
-	class TenderType {
-	}
+class TenderType {
+}
 }
 
-if (! class_exists ( "IsMerchantProfileInitializedResponse" )) {
-	/*
+if (!class_exists("IsMerchantProfileInitializedResponse")) {
+/*
  *IsMerchantProfileInitializedResponse
  */
-	class IsMerchantProfileInitializedResponse {
-		public $IsMerchantProfileInitializedResult; // boolean
-	}
+class IsMerchantProfileInitializedResponse {
+  public $IsMerchantProfileInitializedResult; // boolean
+}
 }
 
-if (! class_exists ( "GetMerchantProfiles" )) {
-	/*
+if (!class_exists("GetMerchantProfiles")) {
+/*
  *GetMerchantProfiles
  */
-	class GetMerchantProfiles {
-		public $sessionToken; // string
-		public $serviceId; // string
-		public $tenderType; // TenderType
-	}
+class GetMerchantProfiles {
+  public $sessionToken; // string
+  public $serviceId; // string
+  public $tenderType; // TenderType
+}
 }
 
-if (! class_exists ( "GetMerchantProfilesResponse" )) {
-	/*
+if (!class_exists("GetMerchantProfilesResponse")) {
+/*
  *GetMerchantProfilesResponse
  */
-	class GetMerchantProfilesResponse {
-		public $GetMerchantProfilesResult; // ArrayOfMerchantProfile
-	}
+class GetMerchantProfilesResponse {
+  public $GetMerchantProfilesResult; // ArrayOfMerchantProfile
+}
 }
 
-if (! class_exists ( "MerchantProfile" )) {
-	/*
+if (!class_exists("MerchantProfile")) {
+/*
  *MerchantProfile
  */
-	class MerchantProfile {
-		public $ProfileId; // string
-		public $ServiceId; // string
-		public $ServiceName; // string
-		public $LastUpdated; // dateTime
-		public $MerchantData; // MerchantProfileMerchantData
-		public $TransactionData; // MerchantProfileTransactionData
-	}
+class MerchantProfile {
+  public $ProfileId; // string
+  public $ServiceId; // string
+  public $ServiceName; // string
+  public $LastUpdated; // dateTime
+  public $MerchantData; // MerchantProfileMerchantData
+  public $TransactionData; // MerchantProfileTransactionData
+}
 }
 
-if (! class_exists ( "MerchantProfileMerchantData" )) {
-	/*
+if (!class_exists("MerchantProfileMerchantData")) {
+/*
  *MerchantProfileMerchantData
  */
-	class MerchantProfileMerchantData {
-		public $CustomerServiceInternet; // string
-		public $CustomerServicePhone; // string
-		public $Language; // TypeISOLanguageCodeA3
-		public $Address; // AddressInfo
-		public $MerchantId; // string
-		public $Name; // string
-		public $Phone; // string
-		public $TaxId; // string
-		public $BankcardMerchantData; // BankcardMerchantData
-		public $ElectronicCheckingMerchantData; // ElectronicCheckingMerchantData
-		public $StoredValueMerchantData; // StoredValueMerchantData
-	}
+class MerchantProfileMerchantData {
+  public $CustomerServiceInternet; // string
+  public $CustomerServicePhone; // string
+  public $Language; // TypeISOLanguageCodeA3
+  public $Address; // AddressInfo
+  public $MerchantId; // string
+  public $Name; // string
+  public $Phone; // string
+  public $TaxId; // string
+  public $BankcardMerchantData; // BankcardMerchantData
+  public $ElectronicCheckingMerchantData; // ElectronicCheckingMerchantData
+  public $StoredValueMerchantData; // StoredValueMerchantData
+}
 }
 
-if (! class_exists ( "TypeISOLanguageCodeA3" )) {
-	/*
+if (!class_exists("TypeISOLanguageCodeA3")) {
+/*
  *TypeISOLanguageCodeA3
  */
-	class TypeISOLanguageCodeA3 {
-	}
+class TypeISOLanguageCodeA3 {
+}
 }
 
-if (! class_exists ( "AddressInfo" )) {
-	/*
+if (!class_exists("AddressInfo")) {
+/*
  *AddressInfo
  */
-	class AddressInfo {
-		public $Street1; // string
-		public $Street2; // string
-		public $City; // string
-		public $StateProvince; // TypeStateProvince
-		public $PostalCode; // string
-		public $CountryCode; // TypeISOCountryCodeA3
-	}
+class AddressInfo {
+  public $Street1; // string
+  public $Street2; // string
+  public $City; // string
+  public $StateProvince; // TypeStateProvince
+  public $PostalCode; // string
+  public $CountryCode; // TypeISOCountryCodeA3
+}
 }
 
-if (! class_exists ( "TypeStateProvince" )) {
-	/*
+if (!class_exists("TypeStateProvince")) {
+/*
  *TypeStateProvince
  */
-	class TypeStateProvince {
-	}
+class TypeStateProvince {
+}
 }
 
-if (! class_exists ( "TypeISOCountryCodeA3" )) {
-	/*
+if (!class_exists("TypeISOCountryCodeA3")) {
+/*
  *TypeISOCountryCodeA3
  */
-	class TypeISOCountryCodeA3 {
-	}
+class TypeISOCountryCodeA3 {
+}
 }
 
-if (! class_exists ( "BankcardMerchantData" )) {
-	/*
+if (!class_exists("BankcardMerchantData")) {
+/*
  *BankcardMerchantData
  */
-	class BankcardMerchantData {
-		public $ABANumber; // string
-		public $AcquirerBIN; // string
-		public $AgentBank; // string
-		public $AgentChain; // string
-		public $Aggregator; // boolean
-		public $ClientNumber; // string
-		public $IndustryType; // IndustryType
-		public $Location; // string
-		public $MerchantType; // string
-		public $PrintCustomerServicePhone; // boolean
-		public $QualificationCodes; // string
-		public $ReimbursementAttribute; // string
-		public $SIC; // string
-		public $SecondaryTerminalId; // string
-		public $SettlementAgent; // string
-		public $SharingGroup; // string
-		public $StoreId; // string
-		public $TerminalId; // string
-		public $TimeZoneDifferential; // string
-	}
+class BankcardMerchantData {
+  public $ABANumber; // string
+  public $AcquirerBIN; // string
+  public $AgentBank; // string
+  public $AgentChain; // string
+  public $Aggregator; // boolean
+  public $ClientNumber; // string
+  public $IndustryType; // IndustryType
+  public $Location; // string
+  public $MerchantType; // string
+  public $PrintCustomerServicePhone; // boolean
+  public $QualificationCodes; // string
+  public $ReimbursementAttribute; // string
+  public $SIC; // string
+  public $SecondaryTerminalId; // string
+  public $SettlementAgent; // string
+  public $SharingGroup; // string
+  public $StoreId; // string
+  public $TerminalId; // string
+  public $TimeZoneDifferential; // string
+}
 }
 
-if (! class_exists ( "IndustryType" )) {
-	/*
+if (!class_exists("IndustryType")) {
+/*
  *IndustryType
  */
-	class IndustryType {
-	}
+class IndustryType {
+}
 }
 
-if (! class_exists ( "ElectronicCheckingMerchantData" )) {
-	/*
+if (!class_exists("ElectronicCheckingMerchantData")) {
+/*
  *ElectronicCheckingMerchantData
  */
-	class ElectronicCheckingMerchantData {
-		public $OrginatorId; // string
-		public $ProductId; // string
-		public $SiteId; // string
-	}
+class ElectronicCheckingMerchantData {
+  public $OrginatorId; // string
+  public $ProductId; // string
+  public $SiteId; // string
+}
 }
 
-if (! class_exists ( "StoredValueMerchantData" )) {
-	/*
+if (!class_exists("StoredValueMerchantData")) {
+/*
  *StoredValueMerchantData
  */
-	class StoredValueMerchantData {
-		public $AgentChain; // string
-		public $ClientNumber; // string
-		public $IndustryType; // IndustryType
-		public $SIC; // string
-		public $StoreId; // string
-		public $TerminalId; // string
-	}
+class StoredValueMerchantData {
+  public $AgentChain; // string
+  public $ClientNumber; // string
+  public $IndustryType; // IndustryType
+  public $SIC; // string
+  public $StoreId; // string
+  public $TerminalId; // string
+}
 }
 
-if (! class_exists ( "MerchantProfileTransactionData" )) {
-	/*
+if (!class_exists("MerchantProfileTransactionData")) {
+/*
  *MerchantProfileTransactionData
  */
-	class MerchantProfileTransactionData {
-		public $BankcardTransactionDataDefaults; // BankcardTransactionDataDefaults
-	}
+class MerchantProfileTransactionData {
+  public $BankcardTransactionDataDefaults; // BankcardTransactionDataDefaults
+}
 }
 
-if (! class_exists ( "BankcardTransactionDataDefaults" )) {
-	/*
+if (!class_exists("BankcardTransactionDataDefaults")) {
+/*
  *BankcardTransactionDataDefaults
  */
-	class BankcardTransactionDataDefaults {
-		public $CurrencyCode; // TypeISOCurrencyCodeA3
-		public $CustomerPresent; // CustomerPresent
-		public $EntryMode; // EntryMode
-		public $RequestACI; // RequestACI
-		public $RequestAdvice; // RequestAdvice
-	}
+class BankcardTransactionDataDefaults {
+  public $CurrencyCode; // TypeISOCurrencyCodeA3
+  public $CustomerPresent; // CustomerPresent
+  public $EntryMode; // EntryMode
+  public $RequestACI; // RequestACI
+  public $RequestAdvice; // RequestAdvice
+}
 }
 
-if (! class_exists ( "TypeISOCurrencyCodeA3" )) {
-	/*
+if (!class_exists("TypeISOCurrencyCodeA3")) {
+/*
  *TypeISOCurrencyCodeA3
  */
-	class TypeISOCurrencyCodeA3 {
-	}
+class TypeISOCurrencyCodeA3 {
+}
 }
 
-if (! class_exists ( "CustomerPresent" )) {
-	/*
+if (!class_exists("CustomerPresent")) {
+/*
  *CustomerPresent
  */
-	class CustomerPresent {
-	}
+class CustomerPresent {
+}
 }
 
-if (! class_exists ( "EntryMode" )) {
-	/*
+if (!class_exists("EntryMode")) {
+/*
  *EntryMode
  */
-	class EntryMode {
-	}
+class EntryMode {
+}
 }
 
-if (! class_exists ( "RequestACI" )) {
-	/*
+if (!class_exists("RequestACI")) {
+/*
  *RequestACI
  */
-	class RequestACI {
-	}
+class RequestACI {
+}
 }
 
-if (! class_exists ( "RequestAdvice" )) {
-	/*
+if (!class_exists("RequestAdvice")) {
+/*
  *RequestAdvice
  */
-	class RequestAdvice {
-	}
+class RequestAdvice {
+}
 }
 
-if (! class_exists ( "GetMerchantProfileIds" )) {
-	/*
+if (!class_exists("GetMerchantProfileIds")) {
+/*
  *GetMerchantProfileIds
  */
-	class GetMerchantProfileIds {
-		public $sessionToken; // string
-		public $serviceId; // string
-		public $tenderType; // TenderType
-	}
+class GetMerchantProfileIds {
+  public $sessionToken; // string
+  public $serviceId; // string
+  public $tenderType; // TenderType
+}
 }
 
-if (! class_exists ( "GetMerchantProfileIdsResponse" )) {
-	/*
+if (!class_exists("GetMerchantProfileIdsResponse")) {
+/*
  *GetMerchantProfileIdsResponse
  */
-	class GetMerchantProfileIdsResponse {
-		public $GetMerchantProfileIdsResult; // ArrayOfstring
-	}
+class GetMerchantProfileIdsResponse {
+  public $GetMerchantProfileIdsResult; // ArrayOfstring
+}
 }
 
-if (! class_exists ( "GetMerchantProfilesByProfileId" )) {
-	/*
+if (!class_exists("GetMerchantProfilesByProfileId")) {
+/*
  *GetMerchantProfilesByProfileId
  */
-	class GetMerchantProfilesByProfileId {
-		public $sessionToken; // string
-		public $merchantProfileId; // string
-	}
+class GetMerchantProfilesByProfileId {
+  public $sessionToken; // string
+  public $merchantProfileId; // string
+}
 }
 
-if (! class_exists ( "GetMerchantProfilesByProfileIdResponse" )) {
-	/*
+if (!class_exists("GetMerchantProfilesByProfileIdResponse")) {
+/*
  *GetMerchantProfilesByProfileIdResponse
  */
-	class GetMerchantProfilesByProfileIdResponse {
-		public $GetMerchantProfilesByProfileIdResult; // ArrayOfMerchantProfile
-	}
+class GetMerchantProfilesByProfileIdResponse {
+  public $GetMerchantProfilesByProfileIdResult; // ArrayOfMerchantProfile
+}
 }
 
-if (! class_exists ( "GetMerchantProfile" )) {
-	/*
+if (!class_exists("GetMerchantProfile")) {
+/*
  *GetMerchantProfile
  */
-	class GetMerchantProfile {
-		public $sessionToken; // string
-		public $merchantProfileId; // string
-		public $serviceId; // string
-		public $tenderType; // TenderType
-	}
+class GetMerchantProfile {
+  public $sessionToken; // string
+  public $merchantProfileId; // string
+  public $serviceId; // string
+  public $tenderType; // TenderType
+}
 }
 
-if (! class_exists ( "GetMerchantProfileResponse" )) {
-	/*
+if (!class_exists("GetMerchantProfileResponse")) {
+/*
  *GetMerchantProfileResponse
  */
-	class GetMerchantProfileResponse {
-		public $GetMerchantProfileResult; // MerchantProfile
-	}
+class GetMerchantProfileResponse {
+  public $GetMerchantProfileResult; // MerchantProfile
+}
 }
 
-if (! class_exists ( "DeleteMerchantProfile" )) {
-	/*
+if (!class_exists("DeleteMerchantProfile")) {
+/*
  *DeleteMerchantProfile
  */
-	class DeleteMerchantProfile {
-		public $sessionToken; // string
-		public $merchantProfileId; // string
-		public $serviceId; // string
-		public $tenderType; // TenderType
-	}
+class DeleteMerchantProfile {
+  public $sessionToken; // string
+  public $merchantProfileId; // string
+  public $serviceId; // string
+  public $tenderType; // TenderType
+}
 }
 
-if (! class_exists ( "DeleteMerchantProfileResponse" )) {
-	/*
+if (!class_exists("DeleteMerchantProfileResponse")) {
+/*
  *DeleteMerchantProfileResponse
  */
-	class DeleteMerchantProfileResponse {
-	}
+class DeleteMerchantProfileResponse {
+}
 }
 
-if (! class_exists ( "SaveMerchantProfiles" )) {
-	/*
+if (!class_exists("SaveMerchantProfiles")) {
+/*
  *SaveMerchantProfiles
  */
-	class SaveMerchantProfiles {
-		public $sessionToken; // string
-		public $serviceId; // string
-		public $tenderType; // TenderType
-		public $merchantProfiles; // ArrayOfMerchantProfile
-	}
+class SaveMerchantProfiles {
+  public $sessionToken; // string
+  public $serviceId; // string
+  public $tenderType; // TenderType
+  public $merchantProfiles; // ArrayOfMerchantProfile
+}
 }
 
+if (! class_exists ( "merchantProfiles" )) {
+	class merchantProfiles {
+		public $merchantProfile;
+	}
+}
 
 if (! class_exists ( "SaveMerchantProfilesResponse" )) {
 	/*
  *SaveMerchantProfilesResponse
  */
-	class SaveMerchantProfilesResponse {
-	}
+class SaveMerchantProfilesResponse {
+}
 }
 
-if (! class_exists ( "SignOnWithUsernamePasswordForServiceKey" )) {
-	/*
+if (!class_exists("SignOnWithUsernamePasswordForServiceKey")) {
+/*
  *SignOnWithUsernamePasswordForServiceKey
  */
-	class SignOnWithUsernamePasswordForServiceKey {
-		public $serviceKey; // string
-		public $username; // string
-		public $password; // string
-	}
+class SignOnWithUsernamePasswordForServiceKey {
+  public $serviceKey; // string
+  public $username; // string
+  public $password; // string
+}
 }
 
-if (! class_exists ( "SignOnWithUsernamePasswordForServiceKeyResponse" )) {
-	/*
+if (!class_exists("SignOnWithUsernamePasswordForServiceKeyResponse")) {
+/*
  *SignOnWithUsernamePasswordForServiceKeyResponse
  */
-	class SignOnWithUsernamePasswordForServiceKeyResponse {
-		public $SignOnWithUsernamePasswordForServiceKeyResult; // string
-	}
+class SignOnWithUsernamePasswordForServiceKeyResponse {
+  public $SignOnWithUsernamePasswordForServiceKeyResult; // string
+}
 }
 
-if (! class_exists ( "ResetPasswordForServiceKey" )) {
-	/*
+if (!class_exists("ResetPasswordForServiceKey")) {
+/*
  *ResetPasswordForServiceKey
  */
-	class ResetPasswordForServiceKey {
-		public $serviceKey; // string
-		public $userName; // string
-	}
+class ResetPasswordForServiceKey {
+  public $serviceKey; // string
+  public $userName; // string
+}
 }
 
-if (! class_exists ( "ResetPasswordForServiceKeyResponse" )) {
-	/*
+if (!class_exists("ResetPasswordForServiceKeyResponse")) {
+/*
  *ResetPasswordForServiceKeyResponse
  */
-	class ResetPasswordForServiceKeyResponse {
-	}
+class ResetPasswordForServiceKeyResponse {
+}
 }
 
-if (! class_exists ( "ChangePasswordForServiceKey" )) {
-	/*
+if (!class_exists("ChangePasswordForServiceKey")) {
+/*
  *ChangePasswordForServiceKey
  */
-	class ChangePasswordForServiceKey {
-		public $serviceKey; // string
-		public $userName; // string
-		public $password; // string
-		public $newPassword; // string
-	}
+class ChangePasswordForServiceKey {
+  public $serviceKey; // string
+  public $userName; // string
+  public $password; // string
+  public $newPassword; // string
+}
 }
 
-if (! class_exists ( "ChangePasswordForServiceKeyResponse" )) {
-	/*
+if (!class_exists("ChangePasswordForServiceKeyResponse")) {
+/*
  *ChangePasswordForServiceKeyResponse
  */
-	class ChangePasswordForServiceKeyResponse {
-	}
+class ChangePasswordForServiceKeyResponse {
+}
 }
 
-if (! class_exists ( "ChangeUsernameForServiceKey" )) {
-	/*
+if (!class_exists("ChangeUsernameForServiceKey")) {
+/*
  *ChangeUsernameForServiceKey
  */
-	class ChangeUsernameForServiceKey {
-		public $serviceKey; // string
-		public $userName; // string
-		public $password; // string
-		public $newUsername; // string
-	}
+class ChangeUsernameForServiceKey {
+  public $serviceKey; // string
+  public $userName; // string
+  public $password; // string
+  public $newUsername; // string
+}
 }
 
-if (! class_exists ( "ChangeUsernameForServiceKeyResponse" )) {
-	/*
+if (!class_exists("ChangeUsernameForServiceKeyResponse")) {
+/*
  *ChangeUsernameForServiceKeyResponse
  */
-	class ChangeUsernameForServiceKeyResponse {
-	}
+class ChangeUsernameForServiceKeyResponse {
+}
 }
 
-if (! class_exists ( "ChangeEmailForServiceKey" )) {
-	/*
+if (!class_exists("ChangeEmailForServiceKey")) {
+/*
  *ChangeEmailForServiceKey
  */
-	class ChangeEmailForServiceKey {
-		public $serviceKey; // string
-		public $userName; // string
-		public $password; // string
-		public $newEmail; // string
-	}
+class ChangeEmailForServiceKey {
+  public $serviceKey; // string
+  public $userName; // string
+  public $password; // string
+  public $newEmail; // string
+}
 }
 
-if (! class_exists ( "ChangeEmailForServiceKeyResponse" )) {
-	/*
+if (!class_exists("ChangeEmailForServiceKeyResponse")) {
+/*
  *ChangeEmailForServiceKeyResponse
  */
-	class ChangeEmailForServiceKeyResponse {
-	}
+class ChangeEmailForServiceKeyResponse {
+}
 }
 
-if (! class_exists ( "GetPasswordExpirationForServiceKey" )) {
-	/*
+if (!class_exists("GetPasswordExpirationForServiceKey")) {
+/*
  *GetPasswordExpirationForServiceKey
  */
-	class GetPasswordExpirationForServiceKey {
-		public $serviceKey; // string
-		public $userName; // string
-		public $password; // string
-	}
+class GetPasswordExpirationForServiceKey {
+  public $serviceKey; // string
+  public $userName; // string
+  public $password; // string
+}
 }
 
-if (! class_exists ( "GetPasswordExpirationForServiceKeyResponse" )) {
-	/*
+if (!class_exists("GetPasswordExpirationForServiceKeyResponse")) {
+/*
  *GetPasswordExpirationForServiceKeyResponse
  */
-	class GetPasswordExpirationForServiceKeyResponse {
-		public $GetPasswordExpirationForServiceKeyResult; // dateTime
-	}
+class GetPasswordExpirationForServiceKeyResponse {
+  public $GetPasswordExpirationForServiceKeyResult; // dateTime
+}
 }
 
-if (! class_exists ( "ValidateMerchantProfile" )) {
-	/*
+if (!class_exists("ValidateMerchantProfile")) {
+/*
  *ValidateMerchantProfile
  */
-	class ValidateMerchantProfile {
-		public $sessionToken; // string
-		public $serviceId; // string
-		public $tenderType; // TenderType
-		public $merchantProfile; // MerchantProfile
-	}
+class ValidateMerchantProfile {
+  public $sessionToken; // string
+  public $serviceId; // string
+  public $tenderType; // TenderType
+  public $merchantProfile; // MerchantProfile
+}
 }
 
-if (! class_exists ( "ValidateMerchantProfileResponse" )) {
-	/*
+if (!class_exists("ValidateMerchantProfileResponse")) {
+/*
  *ValidateMerchantProfileResponse
  */
-	class ValidateMerchantProfileResponse {
-	}
+class ValidateMerchantProfileResponse {
+}
 }
 
-if (! class_exists ( "STSUnavailableFault" )) {
-	/*
+if (!class_exists("STSUnavailableFault")) {
+/*
  *STSUnavailableFault
  */
-	class STSUnavailableFault {
-	}
+class STSUnavailableFault {
+}
 }
 
-if (! class_exists ( "BaseFault" )) {
-	/*
+if (!class_exists("BaseFault")) {
+/*
  *BaseFault
  */
-	class BaseFault {
-		public $ErrorID; // int
-		public $HelpURL; // string
-		public $Operation; // string
-		public $ProblemType; // string
-	}
+class BaseFault {
+  public $ErrorID; // int
+  public $HelpURL; // string
+  public $Operation; // string
+  public $ProblemType; // string
+}
 }
 
-if (! class_exists ( "ExpiredTokenFault" )) {
-	/*
+if (!class_exists("ExpiredTokenFault")) {
+/*
  *ExpiredTokenFault
  */
-	class ExpiredTokenFault {
-	}
+class ExpiredTokenFault {
+}
 }
 
-if (! class_exists ( "InvalidTokenFault" )) {
-	/*
+if (!class_exists("InvalidTokenFault")) {
+/*
  *InvalidTokenFault
  */
-	class InvalidTokenFault {
-	}
+class InvalidTokenFault {
+}
 }
 
-if (! class_exists ( "AuthenticationFault" )) {
-	/*
+if (!class_exists("AuthenticationFault")) {
+/*
  *AuthenticationFault
  */
-	class AuthenticationFault {
-	}
+class AuthenticationFault {
+}
 }
 
-if (! class_exists ( "BadAttemptThresholdExceededFault" )) {
-	/*
+if (!class_exists("BadAttemptThresholdExceededFault")) {
+/*
  *BadAttemptThresholdExceededFault
  */
-	class BadAttemptThresholdExceededFault {
-	}
+class BadAttemptThresholdExceededFault {
+}
 }
 
-if (! class_exists ( "PasswordExpiredFault" )) {
-	/*
+if (!class_exists("PasswordExpiredFault")) {
+/*
  *PasswordExpiredFault
  */
-	class PasswordExpiredFault {
-	}
+class PasswordExpiredFault {
+}
 }
 
-if (! class_exists ( "OneTimePasswordFault" )) {
-	/*
+if (!class_exists("OneTimePasswordFault")) {
+/*
  *OneTimePasswordFault
  */
-	class OneTimePasswordFault {
-	}
+class OneTimePasswordFault {
+}
 }
 
-if (! class_exists ( "LockedByAdminFault" )) {
-	/*
+if (!class_exists("LockedByAdminFault")) {
+/*
  *LockedByAdminFault
  */
-	class LockedByAdminFault {
-	}
+class LockedByAdminFault {
+}
 }
 
-if (! class_exists ( "SendEmailFault" )) {
-	/*
+if (!class_exists("SendEmailFault")) {
+/*
  *SendEmailFault
  */
-	class SendEmailFault {
-	}
+class SendEmailFault {
+}
 }
 
-if (! class_exists ( "GeneratePasswordFault" )) {
-	/*
+if (!class_exists("GeneratePasswordFault")) {
+/*
  *GeneratePasswordFault
  */
-	class GeneratePasswordFault {
-	}
+class GeneratePasswordFault {
+}
 }
 
-if (! class_exists ( "PasswordInvalidFault" )) {
-	/*
+if (!class_exists("PasswordInvalidFault")) {
+/*
  *PasswordInvalidFault
  */
-	class PasswordInvalidFault {
-	}
+class PasswordInvalidFault {
+}
 }
 
-if (! class_exists ( "UserNotFoundFault" )) {
-	/*
+if (!class_exists("UserNotFoundFault")) {
+/*
  *UserNotFoundFault
  */
-	class UserNotFoundFault {
-	}
+class UserNotFoundFault {
+}
 }
 
-if (! class_exists ( "InvalidEmailFault" )) {
-	/*
+if (!class_exists("InvalidEmailFault")) {
+/*
  *InvalidEmailFault
  */
-	class InvalidEmailFault {
-	}
+class InvalidEmailFault {
+}
 }
 
-if (! class_exists ( "CWSFault" )) {
-	/*
+if (!class_exists("CWSFault")) {
+/*
  *CWSFault
  */
-	class CWSFault {
-	}
+class CWSFault {
+}
 }
 
-if (! class_exists ( "CWSBaseFault" )) {
-	/*
+if (!class_exists("CWSBaseFault")) {
+/*
  *CWSBaseFault
  */
-	class CWSBaseFault {
-		public $ErrorID; // int
-		public $HelpURL; // string
-		public $Operation; // string
-		public $ProblemType; // string
-	}
+class CWSBaseFault {
+  public $ErrorID; // int
+  public $HelpURL; // string
+  public $Operation; // string
+  public $ProblemType; // string
+}
 }
 
-if (! class_exists ( "CWSServiceInformationUnavailableFault" )) {
-	/*
+if (!class_exists("CWSServiceInformationUnavailableFault")) {
+/*
  *CWSServiceInformationUnavailableFault
  */
-	class CWSServiceInformationUnavailableFault {
-	}
+class CWSServiceInformationUnavailableFault {
+}
 }
 
-if (! class_exists ( "CWSValidationResultFault" )) {
-	/*
+if (!class_exists("CWSValidationResultFault")) {
+/*
  *CWSValidationResultFault
  */
-	class CWSValidationResultFault {
-		public $Errors; // ArrayOfCWSValidationErrorFault
-	}
+class CWSValidationResultFault {
+  public $Errors; // ArrayOfCWSValidationErrorFault
+}
 }
 
-if (! class_exists ( "CWSValidationErrorFault" )) {
-	/*
+if (!class_exists("CWSValidationErrorFault")) {
+/*
  *CWSValidationErrorFault
  */
-	class CWSValidationErrorFault {
-		public $ErrorType; // CWSValidationErrorFault.EErrorType
-		public $RuleKey; // string
-		public $RuleLocationKey; // string
-		public $RuleMessage; // string
-		public $TransactionId; // string
-	}
+class CWSValidationErrorFault {
+  public $ErrorType; // CWSValidationErrorFault.EErrorType
+  public $RuleKey; // string
+  public $RuleLocationKey; // string
+  public $RuleMessage; // string
+  public $TransactionId; // string
+}
 }
 
-if (! class_exists ( "CWSValidationErrorFault.EErrorType" )) {
-	/*
+if (!class_exists("CWSValidationErrorFault.EErrorType")) {
+/*
  *CWSValidationErrorFault.EErrorType
  */
-	class CWSValidationErrorFault_EErrorType {
-	}
+class CWSValidationErrorFault_EErrorType {
+}
 }
 
 class CWSServiceInformation extends SoapClient {
@@ -1232,19 +1237,19 @@ class CWSServiceInformation extends SoapClient {
                                     'CWSServiceInformationUnavailableFault' => 'CWSServiceInformationUnavailableFault',
                                     'CWSValidationResultFault' => 'CWSValidationResultFault',
                                     'CWSValidationErrorFault' => 'CWSValidationErrorFault',
-                                    'CWSValidationErrorFault.EErrorType' => 'CWSValidationErrorFault.EErrorType',
+                                    'CWSValidationErrorFault_EErrorType' => 'CWSValidationErrorFault_EErrorType',
                                    );
-	
-	public function CWSServiceInformation($wsdl = "", $options = array()) {
-		foreach ( self::$classmap as $key => $value ) {
-			if (! isset ( $options ['classmap'] [$key] )) {
-				$options ['classmap'] [$key] = $value;
-			}
-		}
-		parent::__construct ( $wsdl, $options );
-	}
-	
-	/*
+
+  public function CWSServiceInformation($wsdl = "", $options = array()) {
+    foreach(self::$classmap as $key => $value) {
+      if(!isset($options['classmap'][$key])) {
+        $options['classmap'][$key] = $value;
+      }
+    }
+    parent::__construct($wsdl, $options);
+  }
+
+  /*
    *  
    *
    * @param Ping $parameters
@@ -1259,11 +1264,13 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Sign on using an identity token.
+   * <summary>
+            Sign on using an identity token.
+            </summary>
+        
+   *     <param name="identityToken">Identity token associated with your service key</param>
  
-				Identity token associated with your service key
-				Session 
-   * token 
+   *            <returns>Session token</returns> 
    *
    * @param SignOnWithToken $parameters
    * @return SignOnWithTokenResponse
@@ -1277,11 +1284,13 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Retrieve service information.
- 
-				Session token
-				Service information associated with 
-   * the session token 
+   * <summary>
+            Retrieve service information.
+            </summary>
+           
+   *  <param name="sessionToken">Session token</param>
+            <returns>Service information 
+   * associated with the session token</returns> 
    *
    * @param GetServiceInformation $parameters
    * @return GetServiceInformationResponse
@@ -1295,12 +1304,15 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Save application configuration data.
- 
-				Session token
-				Application common configuration 
-   * data
-				Application profile ID 
+   * <summary>
+            Save application configuration data.
+            </summary>
+    
+   *         <param name="sessionToken">Session token</param>
+            <param name="applicationData">Application 
+   * common configuration data</param>
+            <returns>Application profile ID</returns> 
+   * 
    *
    * @param SaveApplicationData $parameters
    * @return SaveApplicationDataResponse
@@ -1314,13 +1326,16 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Retrieves all current application configuration data associated with the Service Key.
- 
-   * 
-				Session token
-				Application profile ID returned from SaveApplicationData()
-				Application 
-   * common configuration data associated with the session token 
+   * <summary>
+            Retrieves all current application configuration data associated 
+   * with the Service Key.
+            </summary>
+            <param name="sessionToken">Session 
+   * token</param>
+            <param name="applicationProfileId">Application profile ID returned 
+   * from SaveApplicationData()</param>
+            <returns>Application common configuration 
+   * data associated with the session token</returns> 
    *
    * @param GetApplicationData $parameters
    * @return GetApplicationDataResponse
@@ -1334,11 +1349,13 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Deletes application configuration data.
+   * <summary>
+            Deletes application configuration data.
+            </summary>
  
-				Session token
-				Application profile ID 
-   * 
+   *            <param name="sessionToken">Session token</param>
+            <param name="applicationProfileId">Application 
+   * profile ID</param> 
    *
    * @param DeleteApplicationData $parameters
    * @return DeleteApplicationDataResponse
@@ -1352,16 +1369,18 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Tests whether merchant profile is initialized for a specific Tender Type.
+   * <summary>
+            Tests whether merchant profile is initialized for a specific Tender 
+   * Type.
+            </summary>
+            <param name="sessionToken">Session token</param>
  
-				Session 
-   * token
-				Service ID
-				Merchant profile ID
-				Tender type
-				
-					true if the merchant 
-   * profile has been initialized 
+   *            <param name="serviceId">Service ID</param>
+            <param name="merchantProfileId">Merchant 
+   * profile ID</param>
+            <param name="tenderType">Tender type</param>
+          
+   *   <returns><c>true</c> if the merchant profile has been initialized</returns> 
    *
    * @param IsMerchantProfileInitialized $parameters
    * @return IsMerchantProfileInitializedResponse
@@ -1375,13 +1394,16 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Retrieves all merchant profiles associated with a specific Service ID and Tender Type.
- 
-   * 
-				Session token
-				Service ID
-				Tender type
-				Collection of merchant profiles 
+   * <summary>
+            Retrieves all merchant profiles associated with a specific Service 
+   * ID and Tender Type.
+            </summary>
+            <param name="sessionToken">Session 
+   * token</param>
+            <param name="serviceId">Service ID</param>
+            <param 
+   * name="tenderType">Tender type</param>
+            <returns>Collection of merchant profiles</returns> 
    * 
    *
    * @param GetMerchantProfiles $parameters
@@ -1396,14 +1418,17 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Retrieves all merchant profile IDs associated with a specific Service ID and Tender Type.
- 
-   * 
-				Session token
-				Service ID
-				Tender type
-				Collection of merchant profile IDs 
-   * 
+   * <summary>
+            Retrieves all merchant profile IDs associated with a specific Service 
+   * ID and Tender Type.
+            </summary>
+            <param name="sessionToken">Session 
+   * token</param>
+            <param name="serviceId">Service ID</param>
+            <param 
+   * name="tenderType">Tender type</param>
+            <returns>Collection of merchant profile 
+   * IDs</returns> 
    *
    * @param GetMerchantProfileIds $parameters
    * @return GetMerchantProfileIdsResponse
@@ -1417,12 +1442,15 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Retrieves a specific merchant's merchant profiles for all Service IDs and Tender Types.
+   * <summary>
+            Retrieves a specific merchant's merchant profiles for all Service 
+   * IDs and Tender Types.
+            </summary>
+            <param name="sessionToken">Session 
+   * token</param>
+            <param name="merchantProfileId">Merchant profile ID</param>
  
-   * 
-				Session token
-				Merchant profile ID
-				Collection of merchant profiles 
+   *            <returns>Collection of merchant profiles</returns> 
    *
    * @param GetMerchantProfilesByProfileId $parameters
    * @return GetMerchantProfilesByProfileIdResponse
@@ -1436,15 +1464,18 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Retrieves the merchant profile associated with a specific Service ID and Tender Type.
+   * <summary>
+            Retrieves the merchant profile associated with a specific Service 
+   * ID and Tender Type.
+            </summary>
+            <param name="sessionToken">Session 
+   * token</param>
+            <param name="merchantProfileId">Merchant profile ID</param>
  
-   * 
-				Session token
-				Merchant profile ID
-				Service ID
-				Tender type
-				The requested 
-   * merchant profile 
+   *            <param name="serviceId">Service ID</param>
+            <param name="tenderType">Tender 
+   * type</param>
+            <returns>The requested merchant profile</returns> 
    *
    * @param GetMerchantProfile $parameters
    * @return GetMerchantProfileResponse
@@ -1458,13 +1489,16 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Deletes a specific merchant profile for a Tender Type.
- 
-				Session token
-				Merchant 
-   * profile ID
-				Service ID
-				Tender type 
+   * <summary>
+            Deletes a specific merchant profile for a Tender Type.
+         
+   *    </summary>
+            <param name="sessionToken">Session token</param>
+           
+   *  <param name="merchantProfileId">Merchant profile ID</param>
+            <param name="serviceId">Service 
+   * ID</param>
+            <param name="tenderType">Tender type</param> 
    *
    * @param DeleteMerchantProfile $parameters
    * @return DeleteMerchantProfileResponse
@@ -1478,13 +1512,16 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Saves one or more merchant profiles for a Tender Type.
- 
-				Session token
-				Service 
-   * ID
-				Tender type
-				Merchant profiles 
+   * <summary>
+            Saves one or more merchant profiles for a Tender Type.
+         
+   *    </summary>
+            <param name="sessionToken">Session token</param>
+           
+   *  <param name="serviceId">Service ID</param>
+            <param name="tenderType">Tender 
+   * type</param>
+            <param name="merchantProfiles">Merchant profiles</param> 
    *
    * @param SaveMerchantProfiles $parameters
    * @return SaveMerchantProfilesResponse
@@ -1498,14 +1535,17 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Sign on using a username and password.
- 
-				Service key to sign on
-				Username associated 
-   * with the specified service key
-				Password associated with the specified service key 
-   * and username
-				Session token 
+   * <summary>
+            Sign on using a username and password.
+            </summary>
+  
+   *           <param name="serviceKey">Service key to sign on</param>
+            <param name="username">Username 
+   * associated with the specified service key</param>
+            <param name="password">Password 
+   * associated with the specified service key and username</param>
+            <returns>Session 
+   * token</returns> 
    *
    * @param SignOnWithUsernamePasswordForServiceKey $parameters
    * @return SignOnWithUsernamePasswordForServiceKeyResponse
@@ -1519,11 +1559,13 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Reset the password for the specified service key and username.
+   * <summary>
+            Reset the password for the specified service key and username.
  
-				Service key
-				User 
-   * name associated with specified service key 
+   *            </summary>
+            <param name="serviceKey">Service key</param>
+       
+   *      <param name="userName">User name associated with specified service key</param> 
    *
    * @param ResetPasswordForServiceKey $parameters
    * @return ResetPasswordForServiceKeyResponse
@@ -1537,15 +1579,18 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Change the password for the specified service key and username.
+   * <summary>
+            Change the password for the specified service key and username.
  
-				Service key
-				Username 
-   * associated with specified service key
-				Password currently associated with specified 
-   * service key and username
-				New password to associate with specified service key and 
-   * username 
+   *            </summary>
+            <param name="serviceKey">Service key</param>
+       
+   *      <param name="userName">Username associated with specified service key</param>
+   
+   *          <param name="password">Password currently associated with specified service key 
+   * and username</param>
+            <param name="newPassword">New password to associate with 
+   * specified service key and username</param> 
    *
    * @param ChangePasswordForServiceKey $parameters
    * @return ChangePasswordForServiceKeyResponse
@@ -1559,14 +1604,18 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Change the username for the specified service key and username.
+   * <summary>
+            Change the username for the specified service key and username.
  
-				Service key
-				Username 
-   * associated with specified service key
-				Password associated with specified service key 
-   * and username
-				New username to associate with specified service key 
+   *            </summary>
+            <param name="serviceKey">Service key</param>
+       
+   *      <param name="userName">Username associated with specified service key</param>
+   
+   *          <param name="password">Password associated with specified service key and username</param>
+ 
+   *            <param name="newUsername">New username to associate with specified service 
+   * key</param> 
    *
    * @param ChangeUsernameForServiceKey $parameters
    * @return ChangeUsernameForServiceKeyResponse
@@ -1580,14 +1629,18 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Change the email address for the specified service key and username.
+   * <summary>
+            Change the email address for the specified service key and username.
  
-				Service key
-				Username 
-   * associated with specified service key
-				Password associated with specified service key 
-   * and username
-				New email to associate with specified service key and username 
+   *            </summary>
+            <param name="serviceKey">Service key</param>
+       
+   *      <param name="userName">Username associated with specified service key</param>
+   
+   *          <param name="password">Password associated with specified service key and username</param>
+ 
+   *            <param name="newEmail">New email to associate with specified service key and 
+   * username</param> 
    *
    * @param ChangeEmailForServiceKey $parameters
    * @return ChangeEmailForServiceKeyResponse
@@ -1601,13 +1654,16 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Change the username for the specified service key and username.
+   * <summary>
+            Change the username for the specified service key and username.
  
-				Service key
-				Username 
-   * associated with specified service key
-				Password associated with specified service key 
-   * and username 
+   *            </summary>
+            <param name="serviceKey">Service key</param>
+       
+   *      <param name="userName">Username associated with specified service key</param>
+   
+   *          <param name="password">Password associated with specified service key and username</param> 
+   * 
    *
    * @param GetPasswordExpirationForServiceKey $parameters
    * @return GetPasswordExpirationForServiceKeyResponse
@@ -1621,20 +1677,24 @@ class CWSServiceInformation extends SoapClient {
   }
 
   /*
-   * Validates a provided merchant proifile. If the profile is invalid, the operation will 
-   * throw a 
- CWSValidationResultFault containing the details of the exception. If your application 
-   * does not implement 
- unmanaged merchant profiles – you do not need to call this method. 
-   * Your merchant profile will automatically 
- be validated when you call SaveMerchantProfiles.
- 
+   * <summary>
+            Validates a provided merchant proifile. If the profile is invalid, 
+   * the operation will throw a 
+            CWSValidationResultFault containing the details 
+   * of the exception. If your application does not implement 
+            unmanaged merchant 
+   * profiles – you do not need to call this method.  Your merchant profile will automatically 
    * 
-				The session token associated with this call.
-				The service id of record for the 
-   * profile.
-				The tender type of record for the profile.
-				The merchant profile. 
+            be validated when you call SaveMerchantProfiles.
+            </summary>
+ 
+   *            <param name="sessionToken">The session token associated with this call.</param>
+ 
+   *            <param name="serviceId">The service id of record for the profile.</param>
+ 
+   *            <param name="tenderType">The tender type of record for the profile.</param>
+ 
+   *            <param name="merchantProfile">The merchant profile.</param> 
    *
    * @param ValidateMerchantProfile $parameters
    * @return ValidateMerchantProfileResponse

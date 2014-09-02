@@ -242,7 +242,10 @@ function setBCPTxnData($_serviceInformation) {
 		
 		$transactionData->InterchangeData = $interchangeData;
 	}
-	
+	if(Settings::ProcessInternationalTxn)
+	{
+		$transactionData->Is3DSecure = false;
+	}
 	$transaction->TxnData = $transactionData;
 	return $transaction;
 }

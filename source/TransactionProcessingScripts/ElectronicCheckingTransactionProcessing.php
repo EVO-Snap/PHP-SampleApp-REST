@@ -75,6 +75,18 @@ if (is_array($_merchantProfileId)){
 			printTransactionResults($response2, 'Authorize', $merchProfileId);
 		}
 
+		/*
+		 * Send a check transaction with the PaymentAccountDataToken
+		 */
+		
+		if($_achs->Operations->Authorize)
+		{
+			$eckTxn->TndrData->PaymentAccountDataToken = $response2->PaymentAccountDataToken;
+			$eckTxn->TndrData->AccountNumber = null;
+			$response = $client->authorize($eckTxn->TndrData, $eckTxn->TxnData);
+			printTransactionResults($response2, 'AuthorizeWithPaymentAccountDataToken = '.$response2->PaymentAccountDataToken, $merchProfileId);
+		}
+		
 
 
 		/*
@@ -88,7 +100,9 @@ if (is_array($_merchantProfileId)){
 			// First send an Authorize to Void
 			$response3 = $client->authorize($eckTxn->TndrData, $eckTxn->TxnData, $eckTxn->TxnData->Creds);
 			// Now send the Void using TransactionId from above transaction response
-			$response4 = $client->undo($response3->TransactionId, $eckTxn->TxnData->Creds);
+			$undDiffData = new Undo ();
+			$undDiffData->TransactionId = $response3->TransactionId;
+			$response4 = $client->undo($response3->TransactionId, $undDiffData, $eckTxn->TxnData->Creds);
 			printTransactionResults($response4, 'Undo', $merchProfileId);
 		}
 

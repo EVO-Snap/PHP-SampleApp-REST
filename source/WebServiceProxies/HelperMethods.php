@@ -849,11 +849,18 @@ function arrayToObject($array) {
 		$ach_trans->TenderData = new ElectronicCheckingTenderData();
 
 		$ach_trans->TenderData->CheckData = new CheckData();
-		$ach_trans->TenderData->CheckData->AccountNumber = $ach_info->AccountNumber;
+	if($ach_info->PaymentAccountDataToken != '')
+	{
+		$ach_trans->TenderData->PaymentAccountDataToken = $ach_info->PaymentAccountDataToken;
+	}
+	else
+	{
+		$ach_trans->TenderData->CheckData->AccountNumber = $ach_info->AccountNumber;		
+	}
+	$ach_trans->TenderData->CheckData->RoutingNumber = $ach_info->RoutingNumber;
 		$ach_trans->TenderData->CheckData->CheckCountryCode = $ach_info->CheckCountryCode;
 		$ach_trans->TenderData->CheckData->CheckNumber = $ach_info->CheckNumber;
 		$ach_trans->TenderData->CheckData->OwnerType = $ach_info->OwnerType;
-		$ach_trans->TenderData->CheckData->RoutingNumber = $ach_info->RoutingNumber;
 		$ach_trans->TenderData->CheckData->UseType = $ach_info->UseType;
 
 		$ach_trans->TransactionData = new ElectronicCheckingTransactionData();
@@ -882,7 +889,14 @@ function arrayToObject($array) {
 			$ach_trans->Addendum = new Addendum();
 			$ach_trans->Addendum->Unmanaged = new Unmanaged();
 			$ach_trans->Addendum->Unmanaged->Any = new Any();
-			$ach_trans->Addendum->Unmanaged->Any->string = $trans_info->Creds;
+		if (is_array($trans_info->Creds))
+		{
+			//$i = 0;
+			//foreach ($trans_info->Creds as $cred) {
+				$ach_trans->Addendum->Unmanaged->Any->string = $trans_info->Creds; 
+				//$i++;
+			//}
+		}
 		}
 
 		return $ach_trans;
@@ -894,35 +908,51 @@ function arrayToObject($array) {
 	 *
 	 */
 
-	function buildTransaction($credit_info, $trans_info) {
-		$bank_trans = new BankcardTransaction ();
-		$bank_trans->TenderData = new BankcardTenderData ();
-		if ($credit_info->paymentAccountDataToken != '')
-		$bank_trans->TenderData->PaymentAccountDataToken = $credit_info->paymentAccountDataToken;
-			if ($credit_info->securePaymentAccountData != '')
-			$bank_trans->TenderData->SecurePaymentAccountData = $credit_info->securePaymentAccountData;
-		
-		if ($credit_info->paymentAccountDataToken == '' AND $credit_info->securePaymentAccountData == '')
-		{
-			$bank_trans->TenderData->CardData = new CardData ();
-			$bank_trans->TenderData->CardData->CardType = $credit_info->type;
-			$bank_trans->TenderData->CardData->CardholderName = $credit_info->name;
-			$bank_trans->TenderData->CardData->PAN = $credit_info->number;
-			$bank_trans->TenderData->CardData->Expire = $credit_info->expiration;
-			$bank_trans->TenderData->CardData->Track1Data = $credit_info->track1;
-			$bank_trans->TenderData->CardData->Track2Data = $credit_info->track2;
+function buildTransaction($credit_info, $trans_info, $processIntlAvs) {
+	$bank_trans = new BankcardTransaction ();
+	$bank_trans->TenderData = new BankcardTenderData ();
+	if ($credit_info->paymentAccountDataToken != '')
+	$bank_trans->TenderData->PaymentAccountDataToken = $credit_info->paymentAccountDataToken;
+	if ($credit_info->securePaymentAccountData != '')
+	$bank_trans->TenderData->SecurePaymentAccountData = $credit_info->securePaymentAccountData;
+
+	if ($credit_info->paymentAccountDataToken == '' AND $credit_info->securePaymentAccountData == '')
+	{
+		$bank_trans->TenderData->CardData = new CardData ();
+		$bank_trans->TenderData->CardData->CardType = $credit_info->type;
+		$bank_trans->TenderData->CardData->CardholderName = $credit_info->name;
+		$bank_trans->TenderData->CardData->PAN = $credit_info->number;
+		$bank_trans->TenderData->CardData->Expire = $credit_info->expiration;
+		$bank_trans->TenderData->CardData->Track1Data = $credit_info->track1;
+		$bank_trans->TenderData->CardData->Track2Data = $credit_info->track2;
+	}
+	if ($credit_info->zip != '' or $credit_info->cvv != '' or $credit_info->cvv == null) {
+		$bank_trans->TenderData->CardSecurityData = new CardSecurityData ();
+		if ($credit_info->zip != '') {
+			$bank_trans->TenderData->CardSecurityData->AVSData = new AVSData ();
+			$bank_trans->TenderData->CardSecurityData->AVSData->CardholderName = $credit_info->name;
+			$bank_trans->TenderData->CardSecurityData->AVSData->Street = $credit_info->address;
+			$bank_trans->TenderData->CardSecurityData->AVSData->City = $credit_info->city;
+			$bank_trans->TenderData->CardSecurityData->AVSData->StateProvince = $credit_info->state;
+			$bank_trans->TenderData->CardSecurityData->AVSData->PostalCode = $credit_info->zip;
+			$bank_trans->TenderData->CardSecurityData->AVSData->Country = $credit_info->country;
+			$bank_trans->TenderData->CardSecurityData->AVSData->Phone = $credit_info->phone;
 		}
-		if ($credit_info->zip != '' or $credit_info->cvv != '' or $credit_info->cvv == null) {
-			$bank_trans->TenderData->CardSecurityData = new CardSecurityData ();
-			if ($credit_info->zip != '') {
-				$bank_trans->TenderData->CardSecurityData->AVSData = new AVSData ();
-				$bank_trans->TenderData->CardSecurityData->AVSData->CardholderName = $credit_info->name;
-				$bank_trans->TenderData->CardSecurityData->AVSData->Street = $credit_info->address;
-				$bank_trans->TenderData->CardSecurityData->AVSData->City = $credit_info->city;
-				$bank_trans->TenderData->CardSecurityData->AVSData->StateProvince = $credit_info->state;
-				$bank_trans->TenderData->CardSecurityData->AVSData->PostalCode = $credit_info->zip;
-				$bank_trans->TenderData->CardSecurityData->AVSData->Country = $credit_info->country;
-				$bank_trans->TenderData->CardSecurityData->AVSData->Phone = $credit_info->phone;
+		if ($processIntlAvs && $credit_info->houseNumber != '')
+		{
+			$bank_trans->TenderData->CardSecurityData->AVSData = null;
+			$bank_trans->TenderData->CardSecurityData->InternationalAVSData = new InternationalAVSData ();
+			$bank_trans->TenderData->CardSecurityData->InternationalAVSData->HouseNumber = $credit_info->houseNumber;
+			$bank_trans->TenderData->CardSecurityData->InternationalAVSData->POBoxNumber = $credit_info->poBoxNumber;
+			$bank_trans->TenderData->CardSecurityData->InternationalAVSData->Street = $credit_info->street;
+			$bank_trans->TenderData->CardSecurityData->InternationalAVSData->City = $credit_info->city;
+			$bank_trans->TenderData->CardSecurityData->InternationalAVSData->StateProvince = $credit_info->state;
+			$bank_trans->TenderData->CardSecurityData->InternationalAVSData->PostalCode = $credit_info->zip;
+			$bank_trans->TenderData->CardSecurityData->InternationalAVSData->Country = $credit_info->country;
+			$bank_trans->TenderData->CardSecurityData->InternationalAVSOverride = new InternationalAVSOverride();
+			$bank_trans->TenderData->CardSecurityData->InternationalAVSOverride->SkipAVS = $credit_info->skipAVS;
+			$bank_trans->TenderData->CardSecurityData->InternationalAVSOverride->IgnoreAVS = $credit_info->ignoreAVS;
+			$bank_trans->TenderData->CardSecurityData->InternationalAVSOverride->AVSRejectCodes = $credit_info->avsRejectCodes;
 			}
 			if ($credit_info->cvv != '') {
 				$bank_trans->TenderData->CardSecurityData->CVDataProvided = 'Provided';
@@ -932,42 +962,46 @@ function arrayToObject($array) {
 				$bank_trans->TenderData->CardSecurityData->CVData = null;
 				$bank_trans->TenderData->CardSecurityData->CVDataProvided = 'NotSet';
 			}
-			
 			else {
 				$bank_trans->TenderData->CardSecurityData->CVDataProvided = 'NotSet';				
 			}
-			if ($credit_info->identificationInformation != '')
+			if ($credit_info->identificationInformation != ''){
 				$bank_trans->TenderData->CardSecurityData->IdentificationInformation = $credit_info->identificationInformation;
-			if ($credit_info->swipeStatus != '')
+			}
+			if ($credit_info->swipeStatus != ''){
 				$bank_trans->TenderData->SwipeStatus = $credit_info->swipeStatus;
-			if ($credit_info->encryptionKeyId != '')
+			}	
+			if ($credit_info->encryptionKeyId != ''){
 				$bank_trans->TenderData->EncryptionKeyId = $credit_info->encryptionKeyId;
-			if ($credit_info->deviceSerialNumber != '')
+			}	
+			if ($credit_info->deviceSerialNumber != ''){
 				$bank_trans->TenderData->DeviceSerialNumber = $credit_info->deviceSerialNumber;
-				
+			}
 		}
 		$bank_trans->TransactionData = new BankcardTransactionData ();
-		if ($trans_info->AccountType != '')
-		$bank_trans->TransactionData->AccountType = $trans_info->AccountType;
-		$bank_trans->TransactionData->Amount = sprintf("%0.2f", $trans_info->Amount);
-		$bank_trans->TransactionData->ApprovalCode = $trans_info->ApprovalCode;
+		if ($trans_info->AccountType != '') {
+			$bank_trans->TransactionData->AccountType = $trans_info->AccountType;
+			$bank_trans->TransactionData->Amount = sprintf("%0.2f", $trans_info->Amount);
+			$bank_trans->TransactionData->ApprovalCode = $trans_info->ApprovalCode;
+		}
 		if ($trans_info->CashBackAmount != ''){
 			$bank_trans->TransactionData->CashBackAmount = sprintf("%0.2f",  $trans_info->CashBackAmount);
+			$bank_trans->TransactionData->CurrencyCode = $trans_info->CurrencyCode;
+			$bank_trans->TransactionData->CustomerPresent = $trans_info->CustomerPresent;
+			$bank_trans->TransactionData->EmployeeId = $trans_info->EmployeeId;
+			$bank_trans->TransactionData->EntryMode = $trans_info->EntryMode;
 		}
-		$bank_trans->TransactionData->CurrencyCode = $trans_info->CurrencyCode;
-		$bank_trans->TransactionData->CustomerPresent = $trans_info->CustomerPresent;
-		$bank_trans->TransactionData->EmployeeId = $trans_info->EmployeeId;
-		$bank_trans->TransactionData->EntryMode = $trans_info->EntryMode;
-		if ($trans_info->GoodsType != '')
-		$bank_trans->TransactionData->GoodsType = $trans_info->GoodsType;
-		$bank_trans->TransactionData->LaneId = $trans_info->LaneId;
-		$bank_trans->TransactionData->InvoiceNumber = $trans_info->InvoiceNumber;
-		$bank_trans->TransactionData->OrderNumber = $trans_info->OrderNumber;
-		$bank_trans->TransactionData->SignatureCaptured = $trans_info->SignatureCaptured;
-		$bank_trans->TransactionData->IsPartialShipment = $trans_info->IsPartialShipment; // boolean true or false
-		$bank_trans->TransactionData->Reference = $trans_info->Reference;
-		$bank_trans->TransactionData->IsQuasiCash = $trans_info->IsQuasiCash; // boolean true or false
-		$bank_trans->TransactionData->PartialApprovalCapable = $trans_info->PartialApprovalCapable;
+		if ($trans_info->GoodsType != '') {
+			$bank_trans->TransactionData->GoodsType = $trans_info->GoodsType;
+			$bank_trans->TransactionData->LaneId = $trans_info->LaneId;
+			$bank_trans->TransactionData->InvoiceNumber = $trans_info->InvoiceNumber;
+			$bank_trans->TransactionData->OrderNumber = $trans_info->OrderNumber;
+			$bank_trans->TransactionData->SignatureCaptured = $trans_info->SignatureCaptured;
+			$bank_trans->TransactionData->IsPartialShipment = $trans_info->IsPartialShipment; // boolean true or false
+			$bank_trans->TransactionData->Reference = $trans_info->Reference;
+			$bank_trans->TransactionData->IsQuasiCash = $trans_info->IsQuasiCash; // boolean true or false
+			$bank_trans->TransactionData->PartialApprovalCapable = $trans_info->PartialApprovalCapable;
+		}
 		if ($trans_info->TipAmount != '0.00') {
 			$bank_trans->TransactionData->TipAmount = sprintf("%0.2f",  $trans_info->TipAmount);
 			$bank_trans->TransactionData->Amount = $trans_info->Amount + $trans_info->TipAmount;
@@ -976,16 +1010,21 @@ function arrayToObject($array) {
 		if ($trans_info->CFeeAmount != '0.00') {
 			$bank_trans->TransactionData->FeeAmount = sprintf("%0.2f",  $trans_info->CFeeAmount);
 		}
-		
-		else
+		else {
 			$bank_trans->TransactionData->FeeAmount = $trans_info->CFeeAmount;
-		if ($trans_info->Creds != null) {
-			$bank_trans->Addendum = new Addendum ();
-			$bank_trans->Addendum->Unmanaged = new Unmanaged ();
-			$bank_trans->Addendum->Unmanaged->Any = new Any ();
-			//$bank_trans->Addendum->Unmanaged->Any->string = new string ();
-			$bank_trans->Addendum->Unmanaged->Any = $trans_info->Creds;
 		}
+	if ($trans_info->Creds != null)
+	{
+		$bank_trans->Addendum = new Addendum();
+		$bank_trans->Addendum->Unmanaged = new Unmanaged();
+		$bank_trans->Addendum->Unmanaged->Any = new Any();
+		if (is_array($trans_info->Creds))
+		{
+			foreach ($trans_info->Creds as $cred) {
+				$bank_trans->Addendum->Unmanaged->Any->string = $cred;
+			}
+		}
+	}
 		if ($trans_info->ReportingData != null) {
 			$bank_trans->ReportingData = new TransactionReportingData ();
 			$bank_trans->ReportingData->Comment = $trans_info->ReportingData->Comment;
@@ -1010,14 +1049,16 @@ function arrayToObject($array) {
 			$bank_trans->TransactionData->AlternativeMerchantData->Address->PostalCode = $trans_info->AltMerchantData->Address->PostalCode;
 			$bank_trans->TransactionData->AlternativeMerchantData->Address->CountryCode = $trans_info->AltMerchantData->Address->CountryCode;
 		}
-		if ( $trans_info->TransactionData->TransactionCode = 'Override')
+		if ( $trans_info->TransactionCode == 'Override'){
 			$bank_trans->TransactionData->TransactionCode = 'Override';
-		if ( $trans_info->TransactionData->TransactionCode = 'NotSet') 
+		}
+		if ( $trans_info->TransactionCode == 'NotSet') {
 			$bank_trans->TransactionData->TransactionCode = 'NotSet';
+		}
 		$bank_trans->TransactionData->TransactionDateTime = $trans_info->DateTime;
 		$bank_trans->TransactionData->Amount = sprintf("%0.2f", $bank_trans->TransactionData->Amount);
 		$bank_trans->TransactionData->TipAmount = sprintf("%0.2f", $bank_trans->TransactionData->TipAmount);
-		
+	$bank_trans->TransactionData->Is3DSecure = $trans_info->Is3DSecure;
 		return $bank_trans;
 	}
 	/*
@@ -1026,7 +1067,7 @@ function arrayToObject($array) {
 	 *
 	 */
 
-	function buildTransactionPro($credit_info, $trans_info) {
+function buildTransactionPro($credit_info, $trans_info, $processIntlAvs) {
 		$bank_transpro = new BankcardTransactionPro();
 		$bank_transpro->TenderData = new BankcardTenderData ();
 		if ($credit_info->paymentAccountDataToken != '')
@@ -1046,16 +1087,32 @@ function arrayToObject($array) {
 		}
 		if ($credit_info->zip != '' or $credit_info->cvv != '' or $credit_info->cvv == null) {
 			$bank_transpro->TenderData->CardSecurityData = new CardSecurityData ();
-			if ($credit_info->zip != '') {
-				$bank_transpro->TenderData->CardSecurityData->AVSData = new AVSData ();
-				$bank_transpro->TenderData->CardSecurityData->AVSData->CardholderName = $credit_info->name;
-				$bank_transpro->TenderData->CardSecurityData->AVSData->Street = $credit_info->address;
-				$bank_transpro->TenderData->CardSecurityData->AVSData->City = $credit_info->city;
-				$bank_transpro->TenderData->CardSecurityData->AVSData->StateProvince = $credit_info->state;
-				$bank_transpro->TenderData->CardSecurityData->AVSData->PostalCode = $credit_info->zip;
-				$bank_transpro->TenderData->CardSecurityData->AVSData->Country = $credit_info->country;
-				$bank_transpro->TenderData->CardSecurityData->AVSData->Phone = $credit_info->phone;
-			}
+				if ($credit_info->zip != '') {
+			$bank_transpro->TenderData->CardSecurityData->AVSData = new AVSData ();
+			$bank_transpro->TenderData->CardSecurityData->AVSData->CardholderName = $credit_info->name;
+			$bank_transpro->TenderData->CardSecurityData->AVSData->Street = $credit_info->address;
+			$bank_transpro->TenderData->CardSecurityData->AVSData->City = $credit_info->city;
+			$bank_transpro->TenderData->CardSecurityData->AVSData->StateProvince = $credit_info->state;
+			$bank_transpro->TenderData->CardSecurityData->AVSData->PostalCode = $credit_info->zip;
+			$bank_transpro->TenderData->CardSecurityData->AVSData->Country = $credit_info->country;
+			$bank_transpro->TenderData->CardSecurityData->AVSData->Phone = $credit_info->phone;
+		}
+		if ($processIntlAvs && $credit_info->houseNumber != '')
+		{
+			$bank_transpro->TenderData->CardSecurityData->AVSData = null;
+			$bank_transpro->TenderData->CardSecurityData->InternationalAVSData = new InternationalAVSData ();
+			$bank_transpro->TenderData->CardSecurityData->InternationalAVSData->HouseNumber = $credit_info->houseNumber;
+			$bank_transpro->TenderData->CardSecurityData->InternationalAVSData->POBoxNumber = $credit_info->poBoxNumber;
+			$bank_transpro->TenderData->CardSecurityData->InternationalAVSData->Street = $credit_info->street;
+			$bank_transpro->TenderData->CardSecurityData->InternationalAVSData->City = $credit_info->city;
+			$bank_transpro->TenderData->CardSecurityData->InternationalAVSData->StateProvince = $credit_info->state;
+			$bank_transpro->TenderData->CardSecurityData->InternationalAVSData->PostalCode = $credit_info->zip;
+			$bank_transpro->TenderData->CardSecurityData->InternationalAVSData->Country = $credit_info->country;
+			$bank_transpro->TenderData->CardSecurityData->InternationalAVSOverride = new InternationalAVSOverride();
+			$bank_transpro->TenderData->CardSecurityData->InternationalAVSOverride->SkipAVS = $credit_info->skipAVS;
+			$bank_transpro->TenderData->CardSecurityData->InternationalAVSOverride->IgnoreAVS = $credit_info->ignoreAVS;
+			$bank_transpro->TenderData->CardSecurityData->InternationalAVSOverride->AVSRejectCodes = $credit_info->avsRejectCodes;
+				}
 			if ($credit_info->cvv != '') {
 				$bank_transpro->TenderData->CardSecurityData->CVDataProvided = 'Provided';
 				$bank_transpro->TenderData->CardSecurityData->CVData = $credit_info->cvv;
@@ -1064,7 +1121,6 @@ function arrayToObject($array) {
 				$bank_transpro->TenderData->CardSecurityData->CVData = null;
 				$bank_transpro->TenderData->CardSecurityData->CVDataProvided = 'NotSet';
 			}
-			
 			else {
 				$bank_transpro->TenderData->CardSecurityData->CVDataProvided = 'NotSet';				
 			}
@@ -1076,7 +1132,6 @@ function arrayToObject($array) {
 				$bank_transpro->TenderData->EncryptionKeyId = $credit_info->encryptionKeyId;
 			if ($credit_info->deviceSerialNumber != '')
 				$bank_trans->TenderData->DeviceSerialNumber = $credit_info->deviceSerialNumber;
-				
 		}
 		$bank_transpro->TransactionData = new BankcardTransactionData ();
 		$bank_transpro->TransactionData->TransactionDateTime = date('Y-m-d\TH:i:s.u\Z');
@@ -1086,28 +1141,28 @@ function arrayToObject($array) {
 			$bank_transpro->TransactionData->AccountType = 'CheckingAccount';
 		else
 			$bank_transpro->TransactionData->AccountType = 'NotSet';
-		$bank_transpro->TransactionData->Amount = $trans_info->Amount;
-		$bank_transpro->TransactionData->ApprovalCode = $trans_info->ApprovalCode;
+			$bank_transpro->TransactionData->Amount = $trans_info->Amount;
+			$bank_transpro->TransactionData->ApprovalCode = $trans_info->ApprovalCode;
 		if ($trans_info->CashBackAmount != '')
-		$bank_transpro->TransactionData->CashBackAmount = $trans_info->CashBackAmount;
-		$bank_transpro->TransactionData->CurrencyCode = $trans_info->CurrencyCode;
-		$bank_transpro->TransactionData->CustomerPresent = $trans_info->CustomerPresent;
-		$bank_transpro->TransactionData->EmployeeId = $trans_info->EmployeeId;
-		$bank_transpro->TransactionData->EntryMode = $trans_info->EntryMode;
+			$bank_transpro->TransactionData->CashBackAmount = $trans_info->CashBackAmount;
+			$bank_transpro->TransactionData->CurrencyCode = $trans_info->CurrencyCode;
+			$bank_transpro->TransactionData->CustomerPresent = $trans_info->CustomerPresent;
+			$bank_transpro->TransactionData->EmployeeId = $trans_info->EmployeeId;
+			$bank_transpro->TransactionData->EntryMode = $trans_info->EntryMode;
 		if ($trans_info->GoodsType == 'DigitalGoods')
-		$bank_transpro->TransactionData->GoodsType = 'DigitalGoods';
+			$bank_transpro->TransactionData->GoodsType = 'DigitalGoods';
 		else if ($trans_info->GoodsType == 'PhysicalGoods')
 			$bank_transpro->TransactionData->GoodsType = 'PhysicalGoods';
 		else 
 			$bank_transpro->TransactionData->GoodsType = 'NotSet';
-		$bank_transpro->TransactionData->InvoiceNumber = $trans_info->InvoiceNumber;
-		$bank_transpro->TransactionData->LaneId = $trans_info->LaneId;
-		$bank_transpro->TransactionData->OrderNumber = $trans_info->OrderNumber;
-		$bank_transpro->TransactionData->IsPartialShipment = $trans_info->IsPartialShipment;
-		$bank_transpro->TransactionData->Reference = $trans_info->Reference;
-		$bank_transpro->TransactionData->SignatureCaptured = $trans_info->SignatureCaptured;
-		$bank_transpro->TransactionData->IsQuasiCash = $trans_info->IsQuasiCash;
-		$bank_transpro->TransactionData->PartialApprovalCapable = $trans_info->PartialApprovalCapable;
+			$bank_transpro->TransactionData->InvoiceNumber = $trans_info->InvoiceNumber;
+			$bank_transpro->TransactionData->LaneId = $trans_info->LaneId;
+			$bank_transpro->TransactionData->OrderNumber = $trans_info->OrderNumber;
+			$bank_transpro->TransactionData->IsPartialShipment = $trans_info->IsPartialShipment;
+			$bank_transpro->TransactionData->Reference = $trans_info->Reference;
+			$bank_transpro->TransactionData->SignatureCaptured = $trans_info->SignatureCaptured;
+			$bank_transpro->TransactionData->IsQuasiCash = $trans_info->IsQuasiCash;
+			$bank_transpro->TransactionData->PartialApprovalCapable = $trans_info->PartialApprovalCapable;
 		if ($trans_info->TipAmount != '') {
 			$bank_transpro->TransactionData->TipAmount = sprintf("%0.2f",  $trans_info->TipAmount);
 			$bank_transpro->TransactionData->Amount = $trans_info->Amount + $trans_info->TipAmount;
@@ -1118,13 +1173,19 @@ function arrayToObject($array) {
 		}
 		else
 			$bank_transpro->TransactionData->FeeAmount = $trans_info->CFeeAmount;
-		if ($trans_info->Creds != null) {
-			$bank_transpro->Addendum = new Addendum ();
-			$bank_transpro->Addendum->Unmanaged = new Unmanaged ();
-			$bank_transpro->Addendum->Unmanaged->Any = new Any ();
-			//$bank_transpro->Addendum->Unmanaged->Any->string = new string ();
-			$bank_transpro->Addendum->Unmanaged->Any = $trans_info->Creds;
+	if ($trans_info->Creds != null)
+	{
+		$bank_transpro->Addendum = new Addendum();
+		$bank_transpro->Addendum->Unmanaged = new Unmanaged();
+		$bank_transpro->Addendum->Unmanaged->Any = new Any();
+		if (is_array($trans_info->Creds))
+		{
+			foreach ($trans_info->Creds as $cred) {
+				$bank_transpro->Addendum->Unmanaged->Any->string = $cred;
+			}
 		}
+			
+	}
 		if ($trans_info->InterchangeData != null) {
 			$bank_transpro->InterchangeData = new BankcardInterchangeData ();
 			$bank_transpro->InterchangeData->BillPayment = $trans_info->InterchangeData->BillPayment;
@@ -1155,6 +1216,9 @@ function arrayToObject($array) {
 		$bank_transpro->TransactionData->TipAmount = sprintf("%0.2f", $bank_transpro->TransactionData->TipAmount);
 		if ( $trans_info->TransactionData->TransactionCode != null)
 			$bank_transpro->TransactionData->TransactionCode = $trans_info->TransactionData->TransactionCode;
+	if ( $trans_info->TransactionData->TransactionCode == 'NotSet')
+	$bank_transpro->TransactionData->TransactionCode = 'NotSet';
+	$bank_transpro->TransactionData->Is3DSecure = $trans_info->Is3DSecure;
 
 		//var_dump($bank_transpro);
 		return $bank_transpro;
